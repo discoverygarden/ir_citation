@@ -1,0 +1,54 @@
+<mods:mods xmlns:mods="http://www.loc.gov/mods/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema">  
+          <mods:titleInfo> 
+            <mods:title>The Catalyst [2008-2009 v. 39 no.13 January 23]</mods:title> 
+          </mods:titleInfo>  
+<mods:titleInfo type="alternative">
+             <mods:title>Catalyst</mods:title> 
+          </mods:titleInfo>  
+          <mods:typeOfResource>text</mods:typeOfResource>  
+          <mods:originInfo> 
+            <mods:place> 
+              <mods:placeTerm>Colorado Springs, Colorado</mods:placeTerm> 
+            </mods:place>  
+            <mods:publisher>Cutler Publications</mods:publisher>  
+            <mods:dateCreated keyDate="yes">2009</mods:dateCreated>  
+            <mods:dateCaptured></mods:dateCaptured>  
+            <mods:frequency>Twenty-one to thirty weekly issues yearly, Sept.-May</mods:frequency> 
+          </mods:originInfo>  
+          <mods:language type="text"> 
+            <mods:languageTerm>eng</mods:languageTerm> 
+          </mods:language>  
+          <mods:physicalDescription> 
+            <mods:extent>8 p. : ill.</mods:extent>  
+            <mods:digitalOrigin>born digital</mods:digitalOrigin> 
+          </mods:physicalDescription>  
+          <mods:abstract>The Catalyst is the weekly student newspaper of Colorado College. This issue was published January 23, 2009.</mods:abstract>  
+          <mods:note type="admin">Issue originally created in Adobe InDesign, then converted from PDF/X to PDF/A for preservation. Digital files transferred from Cutler Publications may not be the final versions and may differ from the print copies.</mods:note>  
+          <mods:subject> 
+            <mods:topic>College publications</mods:topic> 
+          </mods:subject>  
+          <mods:subject> 
+            <mods:topic>Student publications</mods:topic> 
+          </mods:subject>  
+          <mods:subject> 
+            <mods:name type="corporate"> 
+              <mods:namePart>Colorado College</mods:namePart> 
+            </mods:name> 
+          </mods:subject>  
+          <mods:subject> 
+            <mods:temporal>2000-2009</mods:temporal> 
+          </mods:subject>  
+          <mods:subject> 
+            <mods:genre>Periodicals</mods:genre> 
+          </mods:subject>  
+          <mods:location> 
+            <mods:url usage="primary display">http://hdl.handle.net/10176/coccc:1733</mods:url> 
+          </mods:location>  
+          <mods:accessCondition type="useAndReproduction">Copyright restrictions apply. Contact Cutler Publications for permission to republish.</mods:accessCondition>  
+          <mods:recordInfo> 
+            <mods:languageOfCataloging> 
+                <mods:languageTerm type="text" authority="iso639-2b">English</mods:languageTerm>
+                <mods:languageTerm type="code" authority="iso639-2b">eng</mods:languageTerm>
+            </mods:languageOfCataloging> 
+          </mods:recordInfo> 
+        </mods:mods>

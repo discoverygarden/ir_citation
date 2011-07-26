@@ -1,0 +1,6 @@
+name = ir_citation
+description = A module that helps generate citations.
+package = Fedora Repository
+dependencies[] = fedora_repository
+version = 6.1dev
+core = 6.x
