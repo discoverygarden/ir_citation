@@ -34,7 +34,7 @@ function load_csl_for_javascript($variable_name, $csl) {
     'ir_citation' => array(
       $variable_name => $csl,
     )
-  ));
+  ), 'setting');
 }
 
 /** 

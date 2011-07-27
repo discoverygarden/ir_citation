@@ -36,6 +36,13 @@ function ir_citation_menu() {
 function ir_citation_cite() {
   //init
   module_load_include('inc', 'ir_citation', 'ir_citation');
+  
+  //blubbering testy proof of concept squishyness
+  $variable_name='variable_name';
+  $csl='csl';
+  load_csl_for_javascript($variable_name, $csl);
+  
+  
   $output='';
   
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadabbrevs.js');
