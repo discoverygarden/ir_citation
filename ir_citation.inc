@@ -2,6 +2,10 @@
 /**
  * @file
  *   This file supplies helper functions and utilities to the ir_citation module.
+ * @todo
+ *   load abreviations 
+ *   load locale
+ *   load sys
  */
 
 /**
