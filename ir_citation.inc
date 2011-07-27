@@ -56,9 +56,15 @@ function load_citeproc_json_from_mods($variable_name, $cite_mods) {
 /**
  * This function will transform the MODS string it is given into a json format 
  * that the citeproc-js engine can understand
+ * This function is a module level api style wrapper for converting mods to citeproc_jason
+ * @param $cite_mods
+ *   The mods to convert to citeproc_json for citation purposes
+ * @return
+ *   The json formated citation data
  */
 function mods_to_citeproc_json($cite_mods) {
-  
+  module_load_include('inc', 'ir_citation', '/mods_to_citeproc_json/converter.php');
+  return(convert_mods_to_citeproc_jason($cite_mods));
 }
 
 /**
