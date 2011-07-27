@@ -42,9 +42,6 @@ function ir_citation_cite() {
   $csl='csl';
   load_csl_for_javascript($variable_name, $csl);
   
-  
-  $output='';
-  
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadabbrevs.js');
   load_citeproc_javascript();
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadlocale.js');
