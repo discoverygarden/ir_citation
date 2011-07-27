@@ -71,3 +71,21 @@ function load_json_for_javascript($variable_name, $citeroc_json) {
     )
   ), 'setting');
 }
+
+/**
+ * This function will create and make available the citeproc_json related to the fedora object
+ * Relies on the MODS datastream
+ * The indicated CSL will also be made available
+ * @param string $fedora_pid
+ *   The pid of the fedora object to cite.  This is also used as the variable name for the json and CSL
+ * @param string $csl
+ *   The CSL to be applied to the fedora object's citation.
+ */
+function create_citeation_for_pid($fedora_pid, $csl) {
+  //get the mods from fedora
+  $cite_mods='';
+  //load json
+  load_citeproc_json_from_mods($fedora_pid, $cite_mods);
+  //load citation
+  load_csl_for_javascript($fedora_pid, $csl);
+}
