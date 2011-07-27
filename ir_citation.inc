@@ -28,11 +28,12 @@ function load_citeproc_javascript() {
  */
 function load_csl_for_javascript($variable_name, $csl) {
   //escape quotes
-  //create inline javascript
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   drupal_add_js( array(
-    'ir_citation' => array(
-      $variable_name => $csl,
+    'ir_citation' => array (
+      'csl' => array(
+        $variable_name => $csl,
+      )
     )
   ), 'setting');
 }
@@ -42,7 +43,10 @@ function load_csl_for_javascript($variable_name, $csl) {
  * and load_json_for_javascript
  */
 function load_citeproc_json_from_mods($variable_name, $cite_mods) {
-  
+  //get json
+  $citeproc_json=mods_to_citeproc_json($cite_mods);
+  //load json in javascript
+  load_json_for_javascript($variable_name, $citeproc_json);
 }
 
 /**
@@ -57,6 +61,13 @@ function mods_to_citeproc_json($cite_mods) {
  * @todo
  *   account for multiple uses fo the same variable name
  */
-function load_json_for_javascript($variable_name, $cite_json) {
-  
+function load_json_for_javascript($variable_name, $citeroc_json) {
+  //@todo needs testing, if it works at all, will this work if there are multiple calls?
+  drupal_add_js( array(
+    'ir_citation' => array (
+      'citeproc_json' => array(
+        $variable_name => $csl,
+      )
+    )
+  ), 'setting');
 }
