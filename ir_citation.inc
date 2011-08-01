@@ -26,21 +26,21 @@ function load_citeproc_javascript() {
 }
 
 /**
- * This function will make available the supplied CSL string for use with citeproc-js
- * on the current page being generated's javacript
- * @todo
- *   account for multiple uses fo the same variable name
+ * This function will create and make available the citeproc_json related to the fedora object
+ * Relies on the MODS datastream
+ * The indicated CSL will also be made available
+ * @param string $fedora_pid
+ *   The pid of the fedora object to cite.  This is also used as the variable name for the json and CSL
+ * @param string $csl
+ *   The CSL to be applied to the fedora object's citation.
  */
-function load_csl_for_javascript($variable_name, $csl) {
-  //escape quotes
-  //@todo needs testing, if it works at all, will this work if there are multiple calls?
-  drupal_add_js( array(
-    'ir_citation' => array (
-      'csl' => array(
-        $variable_name => $csl,
-      )
-    )
-  ), 'setting');
+function create_citeation_for_pid($fedora_pid, $csl) {
+  //get the mods from fedora
+  $cite_mods='';
+  //load json
+  load_citeproc_json_from_mods($fedora_pid, $cite_mods);
+  //load citation
+  load_csl_for_javascript($fedora_pid, $csl);
 }
 
 /** 
@@ -84,19 +84,50 @@ function load_json_for_javascript($variable_name, $citeroc_json) {
 }
 
 /**
- * This function will create and make available the citeproc_json related to the fedora object
- * Relies on the MODS datastream
- * The indicated CSL will also be made available
- * @param string $fedora_pid
- *   The pid of the fedora object to cite.  This is also used as the variable name for the json and CSL
- * @param string $csl
- *   The CSL to be applied to the fedora object's citation.
+ * This function will make available the supplied CSL string for use with citeproc-js
+ * on the current page being generated's javacript
+ * @todo
+ *   account for multiple uses fo the same variable name
  */
-function create_citeation_for_pid($fedora_pid, $csl) {
-  //get the mods from fedora
-  $cite_mods='';
-  //load json
-  load_citeproc_json_from_mods($fedora_pid, $cite_mods);
-  //load citation
-  load_csl_for_javascript($fedora_pid, $csl);
+function load_csl_for_javascript($variable_name, $csl) {
+  //escape quotes?
+  //@todo needs testing, if it works at all, will this work if there are multiple calls?
+  drupal_add_js( array(
+    'ir_citation' => array (
+      'csl' => array(
+        $variable_name => $csl,
+      )
+    )
+  ), 'setting');
+}
+
+/**
+ * 
+ */
+function load_locale($lang, $locale) {
+  //@todo needs testing, if it works at all, will this work if there are multiple calls?
+  //@todo may be better to provide as json rather than creating that client side
+  drupal_add_js( array(
+    'ir_citation' => array (
+      'locale' => array(
+        $lang => $locale,
+      )
+    )
+  ), 'setting');
+  
+}
+
+/**
+ * 
+ */
+function load_abbreviation($full_name, $abbreviation) {
+  //@todo needs testing, if it works at all, will this work if there are multiple calls?
+  //@todo may be better to provide abbreviation as json full_name:abbreviation
+  drupal_add_js( array(
+    'ir_citation' => array (
+      'abbreviations' => array(
+        $full_name => $abbreviation,
+      )
+    )
+  ), 'setting');
 }

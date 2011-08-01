@@ -11,8 +11,8 @@
  * @returns
  */
 
-var ir_citation_sys = function(abbreviations){
-	this.abbreviations = abbreviations;
+var ir_citation_sys = function(){
+	this.abbreviations = 'a';//abbreviations;//@todo make this get the abreviations from drupal settings
 };
 
 Sys.prototype.retrieveItem = function(id){
