@@ -20,6 +20,7 @@ function load_citeproc_javascript() {
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/citeproc.js');
   
   //custom for the module loads we may or may not have something here, it depends on later choices
+  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/ir_citation_sys.js');
   //currently being used to launch demo/test
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/try.js');
 }
