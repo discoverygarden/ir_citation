@@ -74,9 +74,10 @@ function ir_citation_run_demo_includes() {
   load_csl_for_javascript($variable_name, $csl);
   
   //abreviations
-  $full_name='full_name';
+  $name='name';
   $abbreviation='abbreviation';
-  load_abbreviation($full_name, $abbreviation);
+  $var_type='var_type';
+  load_abbreviation($name, $var_type, $abbreviation);
   
   //localizations
   $lang='lang';

@@ -121,7 +121,7 @@ function load_locale($lang, $locale) {
 /**
  * 
  */
-function load_abbreviation($_name, $var_type, $abbreviation) {
+function load_abbreviation($name, $var_type, $abbreviation) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   //@todo may be better to provide abbreviation as json
   drupal_add_js( array(
