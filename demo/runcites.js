@@ -376,8 +376,8 @@ var citationBB11 = {
 
 var insert = function(){
 	var citeproc, output;
-	var sys = new Sys(abbreviations);
-	//var sys = new ir_citation_sys();
+	//var sys = new Sys(abbreviations);
+	var sys = new ir_citation_sys();
 	
 	// Chicago Author-Date
 	citeproc = new CSL.Engine(sys, chicago_author_date);

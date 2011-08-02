@@ -20,7 +20,7 @@ ir_citation_sys.prototype.retrieveItem = function(id){
 };
 
 ir_citation_sys.prototype.retrieveLocale = function(lang){
-	return lDrupal.settings.ir_citation.locale[lang];
+	return Drupal.settings.ir_citation.locale[lang];
 };
 
 ir_citation_sys.prototype.getAbbreviations = function(name,vartype){
