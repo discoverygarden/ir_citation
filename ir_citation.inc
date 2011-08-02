@@ -70,15 +70,21 @@ function mods_to_citeproc_json($cite_mods) {
 }
 
 /**
+ * This function will make available the supplied json for use with citeproc-js
+ * on the current page being generated's javacript
  * @todo
  *   account for multiple uses fo the same variable name
+ * @param string $variable_name
+ *   This name to make the json available under.
+ * @param stirng $citeproc_json
+ *   The json to make available.
  */
 function load_json_for_javascript($variable_name, $citeroc_json) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   drupal_add_js( array(
     'ir_citation' => array(
       'citeproc_json' => array(
-        $variable_name => $citeroc_json,
+        $variable_name => $citeproc_json,
       )
     )
   ), 'setting');
@@ -89,6 +95,10 @@ function load_json_for_javascript($variable_name, $citeroc_json) {
  * on the current page being generated's javacript
  * @todo
  *   account for multiple uses fo the same variable name
+ * @param string $variable_name
+ *   This name to make the CSL available under.
+ * @param stirng $csl
+ *   The xml CSL to make available.
  */
 function load_csl_for_javascript($variable_name, $csl) {
   //escape quotes?
@@ -103,7 +113,14 @@ function load_csl_for_javascript($variable_name, $csl) {
 }
 
 /**
- * 
+ * This function will make available the supplied locale string for use with citeproc-js
+ * on the current page being generated's javacript
+ * @todo
+ *   account for multiple uses fo the same variable name
+ * @param string $lang
+ *   This name to make the locale available under.
+ * @param stirng $locale
+ *   The xml locale datat to make available.
  */
 function load_locale($lang, $locale) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
@@ -119,7 +136,16 @@ function load_locale($lang, $locale) {
 }
 
 /**
- * 
+ * This function will make available the supplied abbreviation data for use with citeproc-js
+ * on the current page being generated's javacript
+ * @todo
+ *   account for multiple uses fo the same variable name
+ * @param string $name
+ *   This name to make the abreviation available under.
+ * @param string $var_type
+ *   This type of abbreviation data. ie."institution"
+ * @param stirng $abbreviation
+ *   The abbreviation data to make available.
  */
 function load_abbreviation($name, $var_type, $abbreviation) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
@@ -128,7 +154,7 @@ function load_abbreviation($name, $var_type, $abbreviation) {
     'ir_citation' => array(
       'abbreviations' => array(
         $name => array(
-          $var_type =>$abbreviation,
+          $var_type => $abbreviation,
         )
       )
     )

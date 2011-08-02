@@ -22,9 +22,6 @@ function convert_mods_to_citeproc_json($mods) {
   // Beginnings of a CSL json data structure.
   $csl_data = array();
   
-  // Random... probably use PID in the real world.
-  $csl_data['id'] = 'ITEM-21';
-  
   $xml = new SimpleXMLElement($mods);
   
   /**
