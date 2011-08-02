@@ -15,9 +15,9 @@
  * @return
  *   The json formated citation data
  */
-function convert_mods_to_citeproc_js($mods) {
-  require_once('mods_csl_type_conversion.inc');
-  require_once('marcrelator_conversion.inc');
+function convert_mods_to_citeproc_json($mods) {
+  module_load_include('inc', 'ir_citation', 'mods_to_citeproc_json/mods_csl_type_conversion');
+  module_load_include('inc', 'ir_citation', 'mods_to_citeproc_json/marcrelator_conversion');
   
   // Beginnings of a CSL json data structure.
   $csl_data = array();

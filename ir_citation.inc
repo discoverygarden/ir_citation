@@ -19,7 +19,8 @@ function load_citeproc_javascript() {
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/xmldom.js');
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/citeproc.js');
   
-  //custom for the module loads we may or may not have something here, it depends on later choices
+  /*module specific javascript for making drupal api work with the citeproc javascript*/
+  //creates a 'sys' object that gives the citeproc engine access to the variables set by drupal
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/ir_citation_sys.js');
   //currently being used to launch demo/test
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/try.js');
@@ -64,8 +65,8 @@ function load_citeproc_json_from_mods($variable_name, $cite_mods) {
  *   The json formated citation data
  */
 function mods_to_citeproc_json($cite_mods) {
-  module_load_include('inc', 'ir_citation', '/mods_to_citeproc_json/converter.php');
-  return(convert_mods_to_citeproc_jason($cite_mods));
+  module_load_include('php', 'ir_citation', 'mods_to_citeproc_json/converter');
+  return (convert_mods_to_citeproc_json($cite_mods));
 }
 
 /**
@@ -75,9 +76,9 @@ function mods_to_citeproc_json($cite_mods) {
 function load_json_for_javascript($variable_name, $citeroc_json) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   drupal_add_js( array(
-    'ir_citation' => array (
+    'ir_citation' => array(
       'citeproc_json' => array(
-        $variable_name => $csl,
+        $variable_name => $citeroc_json,
       )
     )
   ), 'setting');
@@ -93,7 +94,7 @@ function load_csl_for_javascript($variable_name, $csl) {
   //escape quotes?
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   drupal_add_js( array(
-    'ir_citation' => array (
+    'ir_citation' => array(
       'csl' => array(
         $variable_name => $csl,
       )
@@ -108,7 +109,7 @@ function load_locale($lang, $locale) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   //@todo may be better to provide as json rather than creating that client side
   drupal_add_js( array(
-    'ir_citation' => array (
+    'ir_citation' => array(
       'locale' => array(
         $lang => $locale,
       )
@@ -124,7 +125,7 @@ function load_abbreviation($full_name, $abbreviation) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   //@todo may be better to provide abbreviation as json full_name:abbreviation
   drupal_add_js( array(
-    'ir_citation' => array (
+    'ir_citation' => array(
       'abbreviations' => array(
         $full_name => $abbreviation,
       )

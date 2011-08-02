@@ -23,7 +23,6 @@ function ir_citation_menu() {
     'access arguments' => array(),
     'type' => MENU_NORMAL_ITEM
   );
-  
   return $menu_entries;
 }
 
@@ -36,27 +35,57 @@ function ir_citation_menu() {
 function ir_citation_cite() {
   //init
   module_load_include('inc', 'ir_citation', 'ir_citation');
-  
-  //blubbering testy proof of concept squishyness
-  $variable_name='variable_name';
-  $csl='csl';
-  load_csl_for_javascript($variable_name, $csl);
-  
+
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadabbrevs.js');
+  ir_citation_run_demo_includes();
   load_citeproc_javascript();
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadlocale.js');
+  
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadsys.js');
+  
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadcsl.js');
+  
   //redo of citeproc's demo with mods->json conversion
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/demo/loadcites_js.php');
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/runcites.js');
   
+  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/runcites.js');
+
   $output=$output . ir_citation_get_demo_html();
   return $output;
 }
 
 /**
- *removed for easy reading 
+ * This funciton will include all the variables in javascript needed for the demo.
+ * It uses the module's API.
+ */
+function ir_citation_run_demo_includes() {
+  module_load_include('inc', 'ir_citation', 'ir_citation');
+  //blubbering testy proof of concept squishyness
+  
+  //mods to json
+  $variable_name='mods_var_name';
+  $cite_mods=file_get_contents(drupal_get_path('module', 'ir_citation') . '/demo/testMods.xml');
+  load_citeproc_json_from_mods($variable_name, $cite_mods);
+  //strait json
+  
+  //csls
+  $variable_name='variable_name';
+  $csl='csl';
+  load_csl_for_javascript($variable_name, $csl);
+  
+  //abreviations
+  $full_name='full_name';
+  $abbreviation='abbreviation';
+  load_abbreviation($full_name, $abbreviation);
+  
+  //localizations
+  $lang='lang';
+  $locale='locale';
+  load_locale($lang, $locale);
+}
+
+/**
+ * moved for easy reading 
  */
 function ir_citation_get_demo_html() {
   return '
@@ -67,7 +96,7 @@ function ir_citation_get_demo_html() {
        illustrating some of the capabilities of
        the <span style="font-family: courier,
        monospace">citeproc-js</span> citation formatter, an
-       implementation of the CSL 1.0 citation style language specification.  
+       implementation of the CSL 1.0 citation style language specification.
 	  For further information on CSL, see
        the <a href="http://citationstyles.org/">CSL website</a>.  For more
        details on the processor, see the
@@ -111,7 +140,7 @@ function ir_citation_get_demo_html() {
     </ul>
 
     <p>If parsing fails and you do not see bibliography listings below,
-       please send mail to 
+       please send mail to
        <a href="mailto:biercenator@gmail.com">biercenator@gmail.com</a>, so
        we can adjust things to work with your browser.
     </p>
@@ -218,7 +247,6 @@ function ir_citation_get_demo_html() {
 	<div class="hangindent" id="bluebook_demo_books"><!-- See NOTE above --></div>
 	<h3>Articles</h3>
 	<div class="hangindent" id="bluebook_demo_articles"><!-- See NOTE above --></div>
-	
     <div class="heading pagebreak">
        Per-author publication listing
     </div>
