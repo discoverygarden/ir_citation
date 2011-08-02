@@ -142,17 +142,17 @@ function load_locale($lang, $locale) {
  *   This name to make the abreviation available under.
  * @param string $var_type
  *   This type of abbreviation data. ie."institution"
- * @param stirng $abbreviation
+ * @param stirng $abbreviation_data
  *   The abbreviation data to make available.
  */
-function load_abbreviation($name, $var_type, $abbreviation) {
+function load_abbreviation($name, $var_type, $abbreviation_data) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   //@todo may be better to provide abbreviation as json
   drupal_add_js( array(
     'ir_citation' => array(
       'abbreviations' => array(
         $name => array(
-          $var_type => $abbreviation,
+          $var_type => $abbreviation_data,
         )
       )
     )
