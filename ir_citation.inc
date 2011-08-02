@@ -79,7 +79,7 @@ function mods_to_citeproc_json($cite_mods) {
  * @param stirng $citeproc_json
  *   The json to make available.
  */
-function load_json_for_javascript($variable_name, $citeroc_json) {
+function load_json_for_javascript($variable_name, $citeproc_json) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
   drupal_add_js( array(
     'ir_citation' => array(
