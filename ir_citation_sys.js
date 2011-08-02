@@ -12,16 +12,17 @@
  */
 
 var ir_citation_sys = function(){
+	return;
 };
 
-Sys.prototype.retrieveItem = function(id){
+ir_citation_sys.prototype.retrieveItem = function(id){
 	return Drupal.settings.ir_citation.citeproc_json[id];
 };
 
-Sys.prototype.retrieveLocale = function(lang){
+ir_citation_sys.prototype.retrieveLocale = function(lang){
 	return lDrupal.settings.ir_citation.locale[lang];
 };
 
-Sys.prototype.getAbbreviations = function(name,vartype){
+ir_citation_sys.prototype.getAbbreviations = function(name,vartype){
 	return Drupal.settings.ir_citation.abbreviations[name][vartype];
 };

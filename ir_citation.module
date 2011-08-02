@@ -64,7 +64,7 @@ function ir_citation_run_demo_includes() {
   //blubbering testy proof of concept squishyness
   
   //mods to json
-  $variable_name='mods_var_name';
+  $variable_name='ITEM-21';
   $cite_mods=file_get_contents(drupal_get_path('module', 'ir_citation') . '/demo/testMods.xml');
   load_citeproc_json_from_mods($variable_name, $cite_mods);
   
