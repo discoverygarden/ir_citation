@@ -12,17 +12,16 @@
  */
 
 var ir_citation_sys = function(){
-	this.abbreviations = 'a';//abbreviations;//@todo make this get the abreviations from drupal settings
 };
 
 Sys.prototype.retrieveItem = function(id){
-	return data[id];
+	return Drupal.settings.ir_citation.citeproc_json[id];
 };
 
 Sys.prototype.retrieveLocale = function(lang){
-	return locale[lang];
+	return lDrupal.settings.ir_citation.locale[lang];
 };
 
 Sys.prototype.getAbbreviations = function(name,vartype){
-	return this.abbreviations[name][vartype];
+	return Drupal.settings.ir_citation.abbreviations[name][vartype];
 };

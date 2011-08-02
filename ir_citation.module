@@ -48,7 +48,7 @@ function ir_citation_cite() {
   //redo of citeproc's demo with mods->json conversion
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/demo/loadcites_js.php');
   
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/runcites.js');
+  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/demo/runcites.js');
 
   $output=$output . ir_citation_get_demo_html();
   return $output;

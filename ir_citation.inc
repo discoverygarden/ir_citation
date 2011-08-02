@@ -121,13 +121,15 @@ function load_locale($lang, $locale) {
 /**
  * 
  */
-function load_abbreviation($full_name, $abbreviation) {
+function load_abbreviation($_name, $var_type, $abbreviation) {
   //@todo needs testing, if it works at all, will this work if there are multiple calls?
-  //@todo may be better to provide abbreviation as json full_name:abbreviation
+  //@todo may be better to provide abbreviation as json
   drupal_add_js( array(
     'ir_citation' => array(
       'abbreviations' => array(
-        $full_name => $abbreviation,
+        $name => array(
+          $var_type =>$abbreviation,
+        )
       )
     )
   ), 'setting');
