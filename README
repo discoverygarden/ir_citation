@@ -1,1 +1,3 @@
 This module is currently experimental. Under heavy development.
+It is a drupal module meant to aid in the use of citeproc-js.
+It relies hevily on the demo code from citeproc-js.

@@ -39,8 +39,6 @@ function ir_citation_cite() {
   ir_citation_run_demo_includes();
   load_citeproc_javascript();
   
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadcsl.js');
-  
   //redo of citeproc's demo with mods->json conversion
   $output=$output . ir_citation_get_demo_html();
   

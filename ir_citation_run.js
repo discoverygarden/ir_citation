@@ -8,7 +8,9 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 	window['insert']();
 	//alert ('debug here');
 }
-
+/**
+ * EVERYTHING FROM THIS POINT ON IS MODIFIED FROM THE CITEPROC_DEMO
+ */
 function pointedStickInnerHtml(elementid,content){
 	if (document.getElementById && !document.all){
 		var rng = document.createRange();
@@ -343,7 +345,7 @@ var insert = function(){
 	var sys = new ir_citation_sys();
 	
 	// Chicago Author-Date
-	citeproc = new CSL.Engine(sys, chicago_author_date);
+	citeproc = new CSL.Engine(sys, Drupal.settings.ir_citation.csl.chicago_author_date);
 	var citeInserter = new CiteInserter("citation_cad","cad");
 	
 	var cad1 = citeproc.appendCitationCluster(citationCAD1);
@@ -368,7 +370,7 @@ var insert = function(){
 	}
 
 	// Bluebook and subsectioned bib
-	citeproc = new CSL.Engine(sys,bluebook_demo);
+	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.bluebook_demo);
 	citeInserter = new CiteInserter("citation", "citation");
 	citeproc.setAbbreviations("default");
 
@@ -448,7 +450,7 @@ var insert = function(){
 	}
 
 	// Listing
-	citeproc = new CSL.Engine(sys,chicago_author_date_listing);
+	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_author_date_listing);
 	citeproc.updateItems(["ITEM-1", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6", "ITEM-7", "ITEM-8","ITEM-9"]);
 	citeproc.setAbbreviations("default");
 	output = citeproc.makeBibliography();
@@ -458,7 +460,7 @@ var insert = function(){
 	}
 
 	// IEEE
-	citeproc = new CSL.Engine(sys,ieee);
+	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.ieee);
 	citeproc.updateItems(["ITEM-1", "ITEM-2", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6"]);
 	citeproc.setAbbreviations("slightly_weird");
 	output = citeproc.makeBibliography();
@@ -468,7 +470,7 @@ var insert = function(){
 	}
 
 	// Annotated
-	citeproc = new CSL.Engine(sys,chicago_fullnote_bibliography2);
+	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_fullnote_bibliography2);
 	citeproc.updateItems(["ITEM-1", "ITEM-2", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6"]);
 	citeproc.setAbbreviations("default");
 	output = citeproc.makeBibliography();
