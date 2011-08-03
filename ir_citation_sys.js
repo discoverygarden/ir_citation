@@ -16,7 +16,8 @@ var ir_citation_sys = function(){
 };
 
 ir_citation_sys.prototype.retrieveItem = function(id){
-	return Drupal.settings.ir_citation.citeproc_json[id];
+	alert(Drupal.settings.ir_citation.citeproc_json[id]);
+	return $().parseJSON(Drupal.settings.ir_citation.citeproc_json[id]);
 };
 
 ir_citation_sys.prototype.retrieveLocale = function(lang){
