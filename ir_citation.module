@@ -36,21 +36,14 @@ function ir_citation_cite() {
   //init
   module_load_include('inc', 'ir_citation', 'ir_citation');
 
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadabbrevs.js');
   ir_citation_run_demo_includes();
   load_citeproc_javascript();
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadlocale.js');
-  
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadsys.js');
   
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/demo/loadcsl.js');
   
   //redo of citeproc's demo with mods->json conversion
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/demo/loadcites_js.php');
-  
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/demo/runcites.js');
-
   $output=$output . ir_citation_get_demo_html();
+  
   return $output;
 }
 

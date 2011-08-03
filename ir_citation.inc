@@ -25,7 +25,7 @@ function load_citeproc_javascript() {
   //creates a 'sys' object that gives the citeproc engine access to the variables set by drupal
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/ir_citation_sys.js');
   //currently being used to launch demo/test
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/try.js');
+  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/ir_citation_run.js');
 }
 
 /**
