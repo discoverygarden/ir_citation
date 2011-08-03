@@ -8,7 +8,8 @@
  * @author 
  *   William Panting
  * @param abbreviations
- * @returns
+ * @returns nada
+ *   nill
  */
 
 var ir_citation_sys = function(){

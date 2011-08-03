@@ -11,21 +11,9 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 /**
  * EVERYTHING FROM THIS POINT ON IS MODIFIED FROM THE CITEPROC_DEMO
  */
+//@todo replace all calls to this function with a strait jquery call so it can be eliminated
 function pointedStickInnerHtml(elementid,content){
-	if (document.getElementById && !document.all){
-		var rng = document.createRange();
-		var el = document.getElementById(elementid);
-		rng.setStartBefore(el);
-		var htmlFrag = rng.createContextualFragment(content);
-		while (el.hasChildNodes())
-			el.removeChild(el.lastChild);
-		el.appendChild(htmlFrag);
-	} else {
-		if (document.getElementById) {
-			var el = document.getElementById(elementid);
-			el.innerHTML = content;
-		}
-	}
+	ir_citation_jQuery('#'+elementid).html(content);
 }
 
 var CiteInserter = function (name, stub) {
