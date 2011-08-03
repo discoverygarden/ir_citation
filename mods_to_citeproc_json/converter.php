@@ -12,15 +12,20 @@
  * This function will convert mods to citeproc_json
  * @param $mods
  *   The mods to convert to citeproc_json for citation purposes
+ * @param $item_id
+ *   The id to insert into the json object, needs to be unique for the page
  * @return
  *   The json formated citation data
  */
-function convert_mods_to_citeproc_json($mods) {
+function convert_mods_to_citeproc_json($mods, $item_id) {
   module_load_include('inc', 'ir_citation', 'mods_to_citeproc_json/mods_csl_type_conversion');
   module_load_include('inc', 'ir_citation', 'mods_to_citeproc_json/marcrelator_conversion');
   
   // Beginnings of a CSL json data structure.
   $csl_data = array();
+  
+  //insert the item id for use by citeproc
+  $csl_data['id'] = $item_id;
   
   $xml = new SimpleXMLElement($mods);
   

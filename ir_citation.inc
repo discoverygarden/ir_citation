@@ -14,7 +14,7 @@
 function load_citeproc_javascript() {
   //jquery library loads
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/jQuery/jquery-1.6.2.min.js');
-  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/jQuery/re_alias_jquery.js');
+  drupal_add_js(drupal_get_path('module', 'ir_citation') . '/jQuery/re_alias_jQuery.js');
   
   //citeproc library loads
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/xmle4x.js');

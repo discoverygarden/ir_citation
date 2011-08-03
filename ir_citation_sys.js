@@ -16,8 +16,7 @@ var ir_citation_sys = function(){
 };
 
 ir_citation_sys.prototype.retrieveItem = function(id){
-	alert(Drupal.settings.ir_citation.citeproc_json[id]);
-	return $().parseJSON(Drupal.settings.ir_citation.citeproc_json[id]);
+	return ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.citeproc_json[id]);
 };
 
 ir_citation_sys.prototype.retrieveLocale = function(lang){

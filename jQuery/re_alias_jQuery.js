@@ -5,8 +5,4 @@
  * @author
  *   William Panting
 */
-
 var ir_citation_jQuery = jQuery.noConflict(true);
-
-
-
