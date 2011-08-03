@@ -49,10 +49,15 @@ function create_citeation_for_pid($fedora_pid, $csl) {
 /** 
  * This is a convienence function that simply wraps mods_to_citeproc_json
  * and load_json_for_javascript
+ * @param string $variable_name
+ *   The id to insert into the json object, needs to be unique for the page, also
+ *   the name in the drupal.settings object that will hold the completed json 
+ * @param string $cite_mods
+ *   The mods to convert to citeproc_json for citation purposes
  */
 function load_citeproc_json_from_mods($variable_name, $cite_mods) {
   //get json
-  $citeproc_json=mods_to_citeproc_json($cite_mods);
+  $citeproc_json=mods_to_citeproc_json($cite_mods, $variable_name);
   //load json in javascript
   load_json_for_javascript($variable_name, $citeproc_json);
 }
@@ -60,15 +65,17 @@ function load_citeproc_json_from_mods($variable_name, $cite_mods) {
 /**
  * This function will transform the MODS string it is given into a json format 
  * that the citeproc-js engine can understand
- * This function is a module level api style wrapper for converting mods to citeproc_jason
+ * This function is a module level api style wrapper for converting mods to citeproc_json
  * @param $cite_mods
  *   The mods to convert to citeproc_json for citation purposes
+ * @param $item_id
+ *   The id to insert into the json object, needs to be unique for the page
  * @return
  *   The json formated citation data
  */
-function mods_to_citeproc_json($cite_mods) {
+function mods_to_citeproc_json($cite_mods, $item_id) {
   module_load_include('php', 'ir_citation', 'mods_to_citeproc_json/converter');
-  return (convert_mods_to_citeproc_json($cite_mods));
+  return (convert_mods_to_citeproc_json($cite_mods, $item_id));
 }
 
 /**
