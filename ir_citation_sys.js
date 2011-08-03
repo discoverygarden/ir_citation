@@ -24,5 +24,5 @@ ir_citation_sys.prototype.retrieveLocale = function(lang){
 };
 
 ir_citation_sys.prototype.getAbbreviations = function(name,vartype){
-	return Drupal.settings.ir_citation.abbreviations[name][vartype];
+	return ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.abbreviations[name][vartype]);
 };

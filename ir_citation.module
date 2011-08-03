@@ -632,36 +632,36 @@ function ir_citation_run_demo_includes() {
   //abreviations
   $name='default';
   $var_type='container-title';
-  $abbreviation_data='"Pacific Rim Law & Policy Journal":"Pac. Rim L. & Pol\u2019y J.","\u65e5\u672c\u6559\u80b2\u5de5\u5b66\u4f1a\u8ad6\u6587\u8a8c":"\u65e5\u6559\u8ad6\u8a8c","Journal of the Japan Educational Engineering Society":"J. Japan Educ. Engineering Soc.","Applied and Environmental Microbiology":"Applied and Environmental Microbiology"';
+  $abbreviation_data='{"Pacific Rim Law & Policy Journal":"Pac. Rim L. & Pol\u2019y J.","\u65e5\u672c\u6559\u80b2\u5de5\u5b66\u4f1a\u8ad6\u6587\u8a8c":"\u65e5\u6559\u8ad6\u8a8c","Journal of the Japan Educational Engineering Society":"J. Japan Educ. Engineering Soc.","Applied and Environmental Microbiology":"Applied and Environmental Microbiology"}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   $var_type='collection-title';  
-  $abbreviation_data='"International Rescue Wildlife Series":"I.R. Wildlife Series"';
+  $abbreviation_data='{"International Rescue Wildlife Series":"I.R. Wildlife Series"}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   $var_type="authority";
-  $abbreviation_data='"United Nations": "U.N."';
+  $abbreviation_data='{"United Nations": "U.N."}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   $var_type="institution";
-  $abbreviation_data='"U.S. Bureau of the Census":"U.S. Bureau of the Census"';
+  $abbreviation_data='{"U.S. Bureau of the Census":"U.S. Bureau of the Census"}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   $name="slightly_weird";
   $var_type='container-title';
-  $abbreviation_data='"Pacific Rim Law & Policy Journal":"PRL & PJ","\u65e5\u672c\u6559\u80b2\u5de5\u5b66\u4f1a\u8ad6\u6587\u8a8c":"\u65e5\u6559\u8ad6","Journal of the Japan Educational Engineering Society":"J. Japan Educ. Eng. Soc.","Applied and Environmental Microbiology":"Appl\'d. & Env\'tal Microbio."';
+  $abbreviation_data='{"Pacific Rim Law & Policy Journal":"PRL & PJ","\u65e5\u672c\u6559\u80b2\u5de5\u5b66\u4f1a\u8ad6\u6587\u8a8c":"\u65e5\u6559\u8ad6","Journal of the Japan Educational Engineering Society":"J. Japan Educ. Eng. Soc.","Applied and Environmental Microbiology":"Appl\'d. & Env\'tal Microbio."}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   $var_type='collection-title';  
-  $abbreviation_data='	"International Rescue Wildlife Series":"I.R. Wildlife Series"';
+  $abbreviation_data='{"International Rescue Wildlife Series":"I.R. Wildlife Series"}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   $var_type="authority";
-  $abbreviation_data='"United Nations": "U.N."';
+  $abbreviation_data='{"United Nations": "U.N."}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   $var_type="institution";
-  $abbreviation_data='"U.S. Bureau of the Census":"U.S. Bureau of the Census"';
+  $abbreviation_data='{"U.S. Bureau of the Census":"U.S. Bureau of the Census"}';
   load_abbreviation($name, $var_type, $abbreviation_data);
   
   

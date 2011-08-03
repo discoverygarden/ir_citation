@@ -89,7 +89,6 @@ function mods_to_citeproc_json($cite_mods, $item_id) {
  *   The json to make available.
  */
 function load_json_for_javascript($variable_name, $citeproc_json) {
-  //@todo needs testing, if it works at all, will this work if there are multiple calls?
   drupal_add_js( array(
     'ir_citation' => array(
       'citeproc_json' => array(
@@ -111,7 +110,6 @@ function load_json_for_javascript($variable_name, $citeproc_json) {
  */
 function load_csl_for_javascript($variable_name, $csl) {
   //escape quotes?
-  //@todo needs testing, if it works at all, will this work if there are multiple calls?
   drupal_add_js( array(
     'ir_citation' => array(
       'csl' => array(
@@ -132,8 +130,6 @@ function load_csl_for_javascript($variable_name, $csl) {
  *   The xml locale datat to make available.
  */
 function load_locale($lang, $locale) {
-  //@todo needs testing, if it works at all, will this work if there are multiple calls?
-  //@todo may be better to provide as json rather than creating that client side
   drupal_add_js( array(
     'ir_citation' => array(
       'locale' => array(
