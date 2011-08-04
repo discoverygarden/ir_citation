@@ -16,7 +16,8 @@ var ir_citation_sys = function(){
 
 /**
  * This function will let the citeproc-js engine access to citation data set by the Drupal module
- * 
+ * @param string id
+ *   Identifier for the citaiton data
  */
 ir_citation_sys.prototype.retrieveItem = function(id){
 	return ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.citeproc_json[id]);
@@ -24,7 +25,8 @@ ir_citation_sys.prototype.retrieveItem = function(id){
 
 /**
  * This function will let the citeproc-js engine access to localization data set by the Drupal module
- * 
+ * @param string lang
+ *   Identifier for the localization data
  */
 ir_citation_sys.prototype.retrieveLocale = function(lang){
 	return Drupal.settings.ir_citation.locale[lang];
@@ -32,6 +34,10 @@ ir_citation_sys.prototype.retrieveLocale = function(lang){
 
 /**
  * This function will let the citeproc-js engine access to abbreviation data set by the Drupal module
+ * @param string name
+ *   Identifier for the abbreviation data
+ * @param string vartype
+ *   Indicates which sub-section of abbreviation data to retrieve
  */
 ir_citation_sys.prototype.getAbbreviations = function(name, vartype){
 	return ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.abbreviations[name][vartype]);

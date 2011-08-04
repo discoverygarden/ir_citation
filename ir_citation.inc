@@ -130,7 +130,7 @@ function load_csl_for_javascript($variable_name, $csl) {
  * @param string $lang
  *   This name to make the locale available under.
  * @param stirng $locale
- *   The xml locale datat to make available.
+ *   The xml locale data to make available.
  */
 function load_locale($lang, $locale) {
   drupal_add_js( array(

@@ -50,7 +50,6 @@ function ir_citation_cite() {
  * It uses the module's API.
  */
 function ir_citation_run_demo_includes() {
-  //@todo  figure out effect of extra brackets getting sent to the vairiables 
   module_load_include('inc', 'ir_citation', 'ir_citation');
   //blubbering testy proof of concept squishyness
   
@@ -58,6 +57,9 @@ function ir_citation_run_demo_includes() {
   $variable_name='ITEM-21';
   $cite_mods=file_get_contents(drupal_get_path('module', 'ir_citation') . '/demo/testMods.xml');
   load_citeproc_json_from_mods($variable_name, $cite_mods);
+
+  //fedora grab test [success]
+  //load_citeproc_json_from_fedora_pid($variable_name, 'Awill:258');
   
   //strait json
   $variable_name='ITEM-1';
