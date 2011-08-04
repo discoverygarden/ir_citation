@@ -90,8 +90,6 @@ function mods_to_citeproc_json($cite_mods, $item_id) {
 /**
  * This function will make available the supplied json for use with citeproc-js
  * on the current page being generated's javacript
- * @todo
- *   account for multiple uses fo the same variable name
  * @param string $variable_name
  *   This name to make the json available under.
  * @param stirng $citeproc_json
@@ -110,8 +108,6 @@ function load_json_for_javascript($variable_name, $citeproc_json) {
 /**
  * This function will make available the supplied CSL string for use with citeproc-js
  * on the current page being generated's javacript
- * @todo
- *   account for multiple uses fo the same variable name
  * @param string $variable_name
  *   This name to make the CSL available under.
  * @param stirng $csl
@@ -131,8 +127,6 @@ function load_csl_for_javascript($variable_name, $csl) {
 /**
  * This function will make available the supplied locale string for use with citeproc-js
  * on the current page being generated's javacript
- * @todo
- *   account for multiple uses fo the same variable name
  * @param string $lang
  *   This name to make the locale available under.
  * @param stirng $locale
@@ -152,8 +146,6 @@ function load_locale($lang, $locale) {
 /**
  * This function will make available the supplied abbreviation data for use with citeproc-js
  * on the current page being generated's javacript
- * @todo
- *   account for multiple uses fo the same variable name
  * @param string $name
  *   This name to make the abreviation available under.
  * @param string $var_type
@@ -162,8 +154,6 @@ function load_locale($lang, $locale) {
  *   The abbreviation data to make available.
  */
 function load_abbreviation($name, $var_type, $abbreviation_data) {
-  //@todo needs testing, if it works at all, will this work if there are multiple calls?
-  //@todo may be better to provide abbreviation as json
   drupal_add_js( array(
     'ir_citation' => array(
       'abbreviations' => array(
