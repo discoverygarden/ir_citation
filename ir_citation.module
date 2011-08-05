@@ -48,6 +48,7 @@ function ir_citation_cite() {
 /**
  * This funciton will include all the variables in javascript needed for the demo.
  * It uses the module's API.
+ * The data came from the citeproc-js demo
  */
 function ir_citation_run_demo_includes() {
   module_load_include('inc', 'ir_citation', 'ir_citation');
