@@ -11,10 +11,6 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 /**
  * EVERYTHING FROM THIS POINT ON IS MODIFIED FROM THE CITEPROC_DEMO
  */
-//@todo replace all calls to this function with a strait jquery call so it can be eliminated
-function pointedStickInnerHtml(elementid,content){
-	ir_citation_jQuery('#'+elementid).html(content);
-}
 
 var CiteInserter = function (name, stub) {
 	this.stub = stub;
@@ -35,7 +31,7 @@ CiteInserter.prototype.insertCite = function (cites) {
 	// due to disambiguation.
 	for (var i = 0, ilen = cites.length; i < ilen; i += 1) {
 		var id = this.stub + (cites[i][0] + 1);
-		pointedStickInnerHtml(id,cites[i][1]);
+		ir_citation_jQuery('#'+id).html(cites[i][1]);
 	}
 	this.idx += 1;
 }
@@ -329,7 +325,7 @@ var citationBB11 = {
 
 var insert = function(){
 	var citeproc, output;
-	//var sys = new Sys(abbreviations);
+	
 	var sys = new ir_citation_sys();
 	
 	// Chicago Author-Date
@@ -354,7 +350,7 @@ var insert = function(){
 	output = citeproc.makeBibliography();
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		pointedStickInnerHtml("chicago_author_date",output);
+		ir_citation_jQuery('#'+"chicago_author_date").html(output);
 	}
 
 	// Bluebook and subsectioned bib
@@ -400,7 +396,7 @@ var insert = function(){
 	output = citeproc.makeBibliography(cases);
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		pointedStickInnerHtml("bluebook_demo_legal_stuff",output);
+		ir_citation_jQuery('#'+"bluebook_demo_legal_stuff").html(output);
 	}
 	var books = {
 		"select" : [
@@ -413,7 +409,7 @@ var insert = function(){
 	output = citeproc.makeBibliography(books);
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		pointedStickInnerHtml("bluebook_demo_books",output);
+		ir_citation_jQuery('#'+"bluebook_demo_books").html(output);
 	}
 	var articles = {
 		"exclude" : [
@@ -434,7 +430,7 @@ var insert = function(){
 	output = citeproc.makeBibliography(articles);
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		pointedStickInnerHtml("bluebook_demo_articles",output);
+		ir_citation_jQuery('#'+"bluebook_demo_articles").html(output);
 	}
 
 	// Listing
@@ -444,7 +440,7 @@ var insert = function(){
 	output = citeproc.makeBibliography();
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		pointedStickInnerHtml("chicago_author_date_listing",output);
+		ir_citation_jQuery('#'+"chicago_author_date_listing").html(output);
 	}
 
 	// IEEE
@@ -454,7 +450,7 @@ var insert = function(){
 	output = citeproc.makeBibliography();
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		pointedStickInnerHtml("ieee",output);
+		ir_citation_jQuery('#'+"ieee").html(output);
 	}
 
 	// Annotated
@@ -464,6 +460,6 @@ var insert = function(){
 	output = citeproc.makeBibliography();
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		pointedStickInnerHtml("chicago_fullnote_bibliography2",output);
+		ir_citation_jQuery('#'+"chicago_fullnote_bibliography2").html(output);
 	}
 };
