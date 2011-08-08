@@ -52,7 +52,323 @@ function ir_citation_cite() {
  */
 function ir_citation_run_demo_includes() {
   module_load_include('inc', 'ir_citation', 'ir_citation');
-  //blubbering testy proof of concept squishyness
+  //demo case
+  
+  //citation objects
+  $variable_name='citationCAD1';
+  $json='{"citationItems":[{"id":"ITEM-1"}],"properties":{"noteIndex": 1}}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationCAD2';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-2"
+		}
+	],
+	"properties": {
+		"noteIndex": 2
+	}}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationCAD3';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-3"
+		}
+	],
+	"properties": {
+		"noteIndex": 3
+	}}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationCAD4';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-4"
+		}
+	],
+	"properties": {
+		"noteIndex": 4
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationCAD5';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-5"
+		}
+	],
+	"properties": {
+		"noteIndex": 5
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationCAD6';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-6"
+		}
+	],
+	"properties": {
+		"noteIndex": 6
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationCAD7';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-21"
+		}
+	],
+	"properties": {
+		"noteIndex": 7
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB1';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-6",
+			"label": "page",
+			"locator": "223"
+		}
+	],
+	"properties": {
+		"noteIndex": 1
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB2';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-6"
+		},
+        {
+			"id": "ITEM-10",
+			"label": "page",
+			"locator": "685"
+		},
+        {
+			"id": "ITEM-11",
+			"label": "page",
+			"locator": "388"
+		},
+        {
+			"id": "ITEM-12",
+			"label": "page",
+			"locator": "359"
+		},
+        {
+			"id": "ITEM-10",
+			"label": "page",
+			"locator": "690"
+		},
+        {
+			"id": "ITEM-11",
+			"label": "page",
+			"locator": "393"
+		},
+        {
+			"id": "ITEM-12",
+			"label": "page",
+			"locator": "364"
+		},
+        {
+			"id": "ITEM-6",
+			"locator": "15",
+			"prefix":"<i>but see</i>"
+		}
+	],
+	"properties": {
+		"noteIndex": 2
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB3';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-13",
+			"locator":"90",
+			"label":"section"
+		},
+        {
+			"id": "ITEM-14",
+			"locator":"7",
+			"label":"section"
+		},
+        {
+			"id": "ITEM-15",
+			"locator":"731-32",
+			"label":"page"
+		},
+        {
+			"id": "ITEM-16"
+		}
+	],
+	"properties": {
+		"noteIndex": 3
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB4';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-2"
+		}
+	],
+	"properties": {
+		"noteIndex": 4
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB5';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-2",
+			"label":"page",
+			"locator":"482"
+		},
+        {
+			"id": "ITEM-13",
+			"locator":"395",
+			"label":"section"
+		},
+        {
+			"id": "ITEM-1",
+			"label":"page",
+			"locator":"25"
+		},
+        {
+			"id": "ITEM-1"
+		},
+        {
+			"id": "ITEM-1",
+			"label":"page",
+			"locator":"112"
+		}
+	],
+	"properties": {
+		"noteIndex": 5
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB6';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-16"
+		}
+	],
+	"properties": {
+		"noteIndex": 6
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB7';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-17",
+			"label":"paragraph",
+			"locator":"6"
+		},
+        {
+			"id": "ITEM-18",
+			"label":"page",
+			"locator":"983"
+		}
+	],
+	"properties": {
+		"noteIndex": 7
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB8';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-19",
+			"suffix":"(appeal taken from Scot.)"
+		}
+	],
+	"properties": {
+		"noteIndex": 8
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB9';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-20",
+			"suffix":"(appeal taken from B.C.)"
+		}
+	],
+	"properties": {
+		"noteIndex": 9
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB10';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-3",
+			"prefix":"<b>En sinn Scholl beschéngt ass, da Mamm frësch blénken hun?</b> <i>See, e.g.</i>"
+		},
+        {
+			"prefix":"<b>Der mä gutt Dach, eng onser bléit geplot mä.</b>  <i>See generally</i>",
+			"id": "ITEM-3",
+			"suffix":"<b>(Iwer Engel Milliounen nei fu, blëtzen néierens d\'Gaassen rou do.)</b>"
+		}
+	],
+	"properties": {
+		"noteIndex": 10
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  
+  $variable_name='citationBB11';
+  $json='{
+	"citationItems": [
+        {
+			"id": "ITEM-13",
+			"label":"section",
+			"locator":"1"
+		}
+	],
+	"properties": {
+		"noteIndex": 11
+	}
+}';
+  load_citeproc_citation_object_for_javascript($variable_name, $json);
+
+  
+  
   
   //mods to json
   $variable_name='ITEM-21';
