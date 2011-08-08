@@ -16,9 +16,9 @@
 function ir_citation_menu() {
   $menu_entries= array();
 
-  $menu_entries['institutional_repository']=array(
-    'title' => 'Institutional Repository',
-    'description' => 'Institutional Repository',
+  $menu_entries['citation demo']=array(
+    'title' => 'citation demo',
+    'description' => 'citation demo',
     'page callback' => 'ir_citation_cite',
     'access arguments' => array(),
     'type' => MENU_NORMAL_ITEM
