@@ -346,14 +346,6 @@ var insert = function(){
 	var cad7 = citeproc.appendCitationCluster(citationCAD7);
 	//alert("Targeted update of cites\naffected by name addition:\n"+cad7);
 	citeInserter.insertCite(cad7);
-	
-	/*
-   //BIBLIOGRAPHY CODE
-	output = citeproc.makeBibliography();
-	if (output && output.length && output[1].length){
-		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		ir_citation_jQuery('#'+"chicago_author_date").html(output);
-	}*/
 
 	// Bluebook and subsectioned bib
 	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.bluebook_demo);
@@ -383,102 +375,4 @@ var insert = function(){
 	var citation11 = citeproc.appendCitationCluster(citationBB11);
 	citeInserter.insertCite(citation11);
 
-	var cases = {
-		"include" : [
-			{
-				"field" : "type",
-				"value" : "legal_case"
-			},
-			{
-				"field" : "type",
-				"value" : "legislation"
-			}
-		]
-	};
-	
-	/*
-   //BIBLIOGRAPHY CODE
-	output = citeproc.makeBibliography(cases);
-	if (output && output.length && output[1].length){
-		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		ir_citation_jQuery('#'+"bluebook_demo_legal_stuff").html(output);
-	}
-	*/
-	
-	var books = {
-		"select" : [
-			{
-				"field" : "type",
-				"value" : "book"
-			}
-		]
-	};
-	
-	/*
-   //BIBLIOGRAPHY CODE
-	output = citeproc.makeBibliography(books);
-	if (output && output.length && output[1].length){
-		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		ir_citation_jQuery('#'+"bluebook_demo_books").html(output);
-	}
-	*/
-	
-	var articles = {
-		"exclude" : [
-			{
-				"field" : "type",
-				"value" : "book"
-			},
-			{
-				"field" : "type",
-				"value" : "legal_case"
-			},
-			{
-				"field" : "type",
-				"value" : "legislation"
-			}
-		]
-	};
-	
-/*
-   //BIBLIOGRAPHY CODE
-	output = citeproc.makeBibliography(articles);
-	if (output && output.length && output[1].length){
-		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		ir_citation_jQuery('#'+"bluebook_demo_articles").html(output);
-	}
-
-	// Listing
-	
-	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_author_date_listing);
-	citeproc.updateItems(["ITEM-1", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6", "ITEM-7", "ITEM-8","ITEM-9"]);
-	citeproc.setAbbreviations("default");
-	
-	output = citeproc.makeBibliography();
-	if (output && output.length && output[1].length){
-		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		ir_citation_jQuery('#'+"chicago_author_date_listing").html(output);
-	}
-
-	// IEEE
-	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.ieee);
-	citeproc.updateItems(["ITEM-1", "ITEM-2", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6"]);
-	citeproc.setAbbreviations("slightly_weird");
-	output = citeproc.makeBibliography();
-	if (output && output.length && output[1].length){
-		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		ir_citation_jQuery('#'+"ieee").html(output);
-	}
-
-	// Annotated
-	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_fullnote_bibliography2);
-	citeproc.updateItems(["ITEM-1", "ITEM-2", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6"]);
-	citeproc.setAbbreviations("default");
-	output = citeproc.makeBibliography();
-	if (output && output.length && output[1].length){
-		output = output[0].bibstart + output[1].join("") + output[0].bibend;
-		ir_citation_jQuery('#'+"chicago_fullnote_bibliography2").html(output);
-	}
-*/
-	
 };
