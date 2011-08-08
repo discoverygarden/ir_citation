@@ -19,10 +19,9 @@ var CiteInserter = function (name, stub) {
 	var spannodes = document.getElementsByTagName("span");
 	for (var pos = 0, len = spannodes.length; pos < len; pos += 1) {
 		var node = spannodes.item(pos);
-		if (node.getAttribute("name") !== name) {
-			continue;
+		if (node.getAttribute("name") == name) {
+			this.nodes.push(node);
 		}
-		this.nodes.push(node);
 	}
 };
 

@@ -29,7 +29,7 @@ ir_citation_sys.prototype.retrieveItem = function(id){
  *   Identifier for the localization data
  */
 ir_citation_sys.prototype.retrieveLocale = function(lang){
-	var local = eval("'"+Drupal.settings.ir_citation.locale[lang]+"'");
+	var locale = eval("'"+Drupal.settings.ir_citation.locale[lang]+"'");
 	return locale;
 };
 
