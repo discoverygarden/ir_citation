@@ -33,12 +33,17 @@ function load_citeproc_javascript() {
  * Relies on the MODS datastream
  * The indicated CSL will also be made available
  * @param string $fedora_pid
- *   The pid of the fedora object to cite.  This is also used as the variable name for the json and CSL
- * @param string $variable_name
+ *   The pid of the fedora object to cite.
+ * @param mixed $variable_name
  *   The id to insert into the json object, needs to be unique for the page, also
  *   the name in the drupal.settings object that will hold the completed json 
+ *   If this is NULL it gets the value of $fedora_pid
  */
-function load_citeproc_json_from_fedora_pid($variable_name, $fedora_pid) {
+function load_citeproc_json_from_fedora_pid($fedora_pid, $variable_name=NULL) {
+  if ($variable_name==NULL) {//allows to do this with only setting $fedora_pid
+    $variable_name=$fedora_pid;
+  }
+  
   //get the mods from fedora
   module_load_include('object.inc', 'islandora_fedora_api'); //for getting an object
   $object= new FedoraObject($fedora_pid);
