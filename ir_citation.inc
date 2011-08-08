@@ -62,7 +62,7 @@ function load_citeproc_json_from_fedora_pid($fedora_pid, $variable_name=NULL) {
 
 /** 
  * This is a convienence function that simply wraps mods_to_citeproc_json
- * and load_json_for_javascript
+ * and load_citeproc_json_for_javascript
  * @param string $variable_name
  *   The id to insert into the json object, needs to be unique for the page, also
  *   the name in the drupal.settings object that will hold the completed json 
@@ -73,7 +73,7 @@ function load_citeproc_json_from_mods($variable_name, $cite_mods) {
   //get json
   $citeproc_json=mods_to_citeproc_json($cite_mods, $variable_name);
   //load json in javascript
-  load_json_for_javascript($variable_name, $citeproc_json);
+  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
 }
 
 /**
@@ -100,11 +100,30 @@ function mods_to_citeproc_json($cite_mods, $item_id) {
  * @param stirng $citeproc_json
  *   The json to make available.
  */
-function load_json_for_javascript($variable_name, $citeproc_json) {
+function load_citeproc_json_for_javascript($variable_name, $citeproc_json) {
   drupal_add_js( array(
     'ir_citation' => array(
       'citeproc_json' => array(
         $variable_name => $citeproc_json,
+      )
+    )
+  ), 'setting');
+}
+
+/**
+ * This function will make available the supplied citation object json for use with citeproc-js
+ * on the current page being generated's javacript
+ * @param string $variable_name
+ *   This name to make the json available under.
+ * @param stirng $json
+ *   The json to make available.  The formatting can be found here: 
+ *   http://gsl-nagoya-u.net/http/pub/citeproc-doc.html#citation-data-object
+ */
+function load_citeproc_citation_object_for_javascript($variable_name, $json) {
+  drupal_add_js( array(
+    'ir_citation' => array(
+      'citation_objects' => array(
+        $variable_name => $json,
       )
     )
   ), 'setting');
