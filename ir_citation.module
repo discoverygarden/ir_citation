@@ -686,6 +686,8 @@ function ir_citation_get_demo_html() {
     <div class="heading">
        Chicago Author-Date (names sorted alphabetically, titles translated, no abbreviations, ambiguous name)
     </div>
+    
+    
     <p>
        Teren aldëon etelotya epë ma, murmë leuca rempa nu loc, nar
        raxë estel naitya oa. <span id="cad1"
@@ -703,7 +705,32 @@ function ir_citation_get_demo_html() {
        línë cotumo métima. <span id="cad7"
        name="citation_cad">[cite]</span>
     </p>
+    
+    
     <h2>References</h2>
+    
+    
+    <div class="heading pagebreak">
+       Bluebook + Chicago Fullnote Bibliography
+    </div>
+    <p>
+      Bei un gewëss Hämmelsbrot d\'Margréitchen, gét Noper blëtzen
+      Dauschen am.<sup>(1)</sup> Op dan engem Blieder Feierwon, un der
+      ston zielen duerch.<sup>(2)</sup> Hin wielen heemlech mä, hu ech
+      éiweg klinzecht.<sup>(3)</sup> Ass an Himmel rëschten, wee
+      d\'wäiss bessert Freiesch dé, hirem d\'Leit Blieder eng
+      an.<sup>(4)</sup> Si aus iwer Mamm, geet schlon op get, de Engel
+      rifft gudden net.<sup>(5)</sup>
+    </p>
+    <p>
+      Aus um fest spilt gefällt, hun zënne rëscht ké.<sup>(6)</sup> Mä
+      Räis sech gemaacht déi, dé och Welt Hären, ech dénen geplot
+      d\'Gaassen et.<sup>(7)</sup> Hier beschte verstoppen da ech, vill
+      heemlech net um.<sup>(8)</sup> Esou Scholl schléit un fir. Wat
+      ma\'n kille d\'Hiezer wa, frou Mecht Schiet am fir.<sup>(9)</sup>
+      Mä rëm keng Engel bleiwe,<sup>(10)</sup> gëtt Stret geplot dé dem, déi zënne
+      gudden löschteg op.<sup>(11)</sup>
+    </p>
 
     <div style="width:5em">
        <hr />
@@ -713,7 +740,7 @@ function ir_citation_get_demo_html() {
     </div>
     <div class="footnote">
       <sup>(2)</sup> <span class="fntext" id="citation2" name="citation">[book (Census) general ref] [std court decision, general ref][book (Census) pinpoint ref]
-</span>
+    </span>
     </div>
     <div class="footnote">
       <sup>(3)</sup> <span class="fntext" id="citation3" name="citation">[code] [statute, session laws] [regulation]</span>
