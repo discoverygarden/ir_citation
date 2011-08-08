@@ -346,11 +346,14 @@ var insert = function(){
 	var cad7 = citeproc.appendCitationCluster(citationCAD7);
 	//alert("Targeted update of cites\naffected by name addition:\n"+cad7);
 	citeInserter.insertCite(cad7);
+	
+	/*
+   //BIBLIOGRAPHY CODE
 	output = citeproc.makeBibliography();
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
 		ir_citation_jQuery('#'+"chicago_author_date").html(output);
-	}
+	}*/
 
 	// Bluebook and subsectioned bib
 	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.bluebook_demo);
@@ -392,11 +395,16 @@ var insert = function(){
 			}
 		]
 	};
+	
+	/*
+   //BIBLIOGRAPHY CODE
 	output = citeproc.makeBibliography(cases);
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
 		ir_citation_jQuery('#'+"bluebook_demo_legal_stuff").html(output);
 	}
+	*/
+	
 	var books = {
 		"select" : [
 			{
@@ -405,11 +413,16 @@ var insert = function(){
 			}
 		]
 	};
+	
+	/*
+   //BIBLIOGRAPHY CODE
 	output = citeproc.makeBibliography(books);
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
 		ir_citation_jQuery('#'+"bluebook_demo_books").html(output);
 	}
+	*/
+	
 	var articles = {
 		"exclude" : [
 			{
@@ -426,6 +439,9 @@ var insert = function(){
 			}
 		]
 	};
+	
+/*
+   //BIBLIOGRAPHY CODE
 	output = citeproc.makeBibliography(articles);
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
@@ -433,9 +449,11 @@ var insert = function(){
 	}
 
 	// Listing
+	
 	citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_author_date_listing);
 	citeproc.updateItems(["ITEM-1", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6", "ITEM-7", "ITEM-8","ITEM-9"]);
 	citeproc.setAbbreviations("default");
+	
 	output = citeproc.makeBibliography();
 	if (output && output.length && output[1].length){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
@@ -461,4 +479,6 @@ var insert = function(){
 		output = output[0].bibstart + output[1].join("") + output[0].bibend;
 		ir_citation_jQuery('#'+"chicago_fullnote_bibliography2").html(output);
 	}
+*/
+	
 };
