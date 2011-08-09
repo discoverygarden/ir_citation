@@ -16,6 +16,7 @@
 function ir_citation_menu() {
   $menu_entries= array();
 
+  //demo page
   $menu_entries['citation demo']=array(
     'title' => 'citation demo',
     'description' => 'citation demo',
@@ -1006,19 +1007,19 @@ function ir_citation_get_demo_html() {
     
     <p>
        Teren aldëon etelotya epë ma, murmë leuca rempa nu loc, nar
-       raxë estel naitya oa. <span id="cad1"
+       raxë estel naitya oa. <span id="cad1" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD1"
        name="citation_cad">[cite]</span> Nu mir anca costa, arca rondë
-       liéva ëa huo. <span id="cad2" name="citation_cad">[cite]</span>
-       Aiwë pelentul tol sú. <span id="cad3"
+       liéva ëa huo. <span id="cad2" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD2" name="citation_cad">[cite]</span>
+       Aiwë pelentul tol sú. <span id="cad3" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD3"
        name="citation_cad">[cite]</span> Ëa harë línë tenna mel, eques
-       talta ataqua qua sú. <span id="cad4"
+       talta ataqua qua sú. <span id="cad4" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD4"
        name="citation_cad">[cite]</span> Úvë ataqua simpina caimassë
        us, sir ronyo haloitë tareldar et, né manë mitta liquis
-       eru. <span id="cad5" name="citation_cad">[cite]</span> Oi táp
+       eru. <span id="cad5" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD5" name="citation_cad">[cite]</span> Oi táp
        laicë nainanyéna leryalehtya, sindar nostalë at
-       axa. <span id="cad6" name="citation_cad">[cite]</span> Wen
+       axa. <span id="cad6" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD6" name="citation_cad">[cite]</span> Wen
        namna sairon tellaurë er, hahta pendë quesset lia us, ré apa
-       línë cotumo métima. <span id="cad7"
+       línë cotumo métima. <span id="cad7" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD7"
        name="citation_cad">[cite]</span>
     </p>
     
@@ -1052,38 +1053,38 @@ function ir_citation_get_demo_html() {
        <hr />
     </div>
     <div class="footnote">
-      <sup>(1)</sup> <span class="fntext" id="citation1" name="citation">[book (Census) with pinpoint]</span>
+      <sup>(1)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB1"  data-ir_citation_abbreviations="default" id="citation1" name="citation">[book (Census) with pinpoint]</span>
     </div>
     <div class="footnote">
-      <sup>(2)</sup> <span class="fntext" id="citation2" name="citation">[book (Census) general ref] [std court decision, general ref][book (Census) pinpoint ref]
+      <sup>(2)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB2"  data-ir_citation_abbreviations="default"  id="citation2" name="citation">[book (Census) general ref] [std court decision, general ref][book (Census) pinpoint ref]
     </span>
     </div>
     <div class="footnote">
-      <sup>(3)</sup> <span class="fntext" id="citation3" name="citation">[code] [statute, session laws] [regulation]</span>
+      <sup>(3)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB3"  data-ir_citation_abbreviations="default"  id="citation3" name="citation">[code] [statute, session laws] [regulation]</span>
     </div>
     <div class="footnote">
-      <sup>(4)</sup> <span class="fntext" id="citation4" name="citation">[article, general ref]</span>
+      <sup>(4)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB4"  data-ir_citation_abbreviations="default"  id="citation4" name="citation">[article, general ref]</span>
     </div>
     <div class="footnote">
-      <sup>(5)</sup> <span class="fntext" id="citation5" name="citation">[article, pinpoint] [code] [book D\'Arcus pinpoint] [book D\'Arcus general ref]</span>
+      <sup>(5)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB5"  data-ir_citation_abbreviations="default"  id="citation5" name="citation">[article, pinpoint] [code] [book D\'Arcus pinpoint] [book D\'Arcus general ref]</span>
     </div>
     <div class="footnote">
-      <sup>(6)</sup> <span class="fntext" id="citation6" name="citation">[regulation]</span>
+      <sup>(6)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB6"  data-ir_citation_abbreviations="default"  id="citation6" name="citation">[regulation]</span>
     </div>
     <div class="footnote">
-      <sup>(7)</sup> <span class="fntext" id="citation7" name="citation">[court decision (public domain cite)]</span>
+      <sup>(7)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB7"  data-ir_citation_abbreviations="default"  id="citation7" name="citation">[court decision (public domain cite)]</span>
     </div>
     <div class="footnote">
-      <sup>(8)</sup> <span class="fntext" id="citation8" name="citation">[court decision (UK) year as volume]</span>
+      <sup>(8)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB8"  data-ir_citation_abbreviations="default"  id="citation8" name="citation">[court decision (UK) year as volume]</span>
     </div>
     <div class="footnote">
-      <sup>(9)</sup> <span class="fntext" id="citation9" name="citation">[court decision (UK) with issue number]</span>
+      <sup>(9)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB9"  data-ir_citation_abbreviations="default"  id="citation9" name="citation">[court decision (UK) with issue number]</span>
     </div>
     <div class="footnote">
-      <sup>(10)</sup> <span class="fntext" id="citation10" name="citation">[zelle] [zelle (again)]</span>
+      <sup>(10)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB10"  data-ir_citation_abbreviations="default"  id="citation10" name="citation">[zelle] [zelle (again)]</span>
     </div>
     <div class="footnote">
-      <sup>(11)</sup> <span class="fntext" id="citation11" name="citation">[code again] [regulation]</span>
+      <sup>(11)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB11"  data-ir_citation_abbreviations="default"  id="citation11" name="citation">[code again] [regulation]</span>
     </div>
   ';
 }
