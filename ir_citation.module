@@ -62,12 +62,14 @@ function ir_citation_run_demo_includes() {
 
   load_bibliography_list_for_javascript(array("ITEM-1", "ITEM-2", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6"), 'chicago_fullnote_bibliography2');
   
-  
+  $bibliography_selector='{"select" : [{"field" : "type","value" : "book"}]}';
+  $variable_name='test';
+  load_bibliography_selector($bibliography_selector, $variable_name);
   
   //citation objects
   $variable_name='citationCAD1';
   $json='{"citationItems":[{"id":"ITEM-1"}],"properties":{"noteIndex": 1}}';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationCAD2';
   $json='{
@@ -79,7 +81,7 @@ function ir_citation_run_demo_includes() {
 	"properties": {
 		"noteIndex": 2
 	}}';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationCAD3';
   $json='{
@@ -91,7 +93,7 @@ function ir_citation_run_demo_includes() {
 	"properties": {
 		"noteIndex": 3
 	}}';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationCAD4';
   $json='{
@@ -104,7 +106,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 4
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationCAD5';
   $json='{
@@ -117,7 +119,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 5
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationCAD6';
   $json='{
@@ -130,7 +132,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 6
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationCAD7';
   $json='{
@@ -143,7 +145,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 7
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB1';
   $json='{
@@ -158,7 +160,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 1
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB2';
   $json='{
@@ -206,7 +208,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 2
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB3';
   $json='{
@@ -234,7 +236,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 3
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB4';
   $json='{
@@ -247,7 +249,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 4
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB5';
   $json='{
@@ -280,7 +282,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 5
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB6';
   $json='{
@@ -293,7 +295,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 6
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB7';
   $json='{
@@ -313,7 +315,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 7
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB8';
   $json='{
@@ -327,7 +329,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 8
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB9';
   $json='{
@@ -341,7 +343,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 9
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB10';
   $json='{
@@ -360,7 +362,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 10
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
   
   $variable_name='citationBB11';
   $json='{
@@ -375,7 +377,7 @@ function ir_citation_run_demo_includes() {
 		"noteIndex": 11
 	}
 }';
-  load_citeproc_citation_object_for_javascript($variable_name, $json);
+  load_citeproc_citation_object_for_javascript($json, $variable_name);
 
   
   

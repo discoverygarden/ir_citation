@@ -2,6 +2,7 @@
  * @file
  *   This kicks off the citation process.  Currently this module does not support all the disambiguation 
  *   features of citeproc-js, for now to get them you should write your own javascript to overide ir_citation_run.js.
+ *   This is because a new citation engine object is created for each citation.
  * @author 
  *   William Panting
  */
@@ -35,12 +36,19 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 		  if (bibliography_list_key!=undefined) {			 
 			bibliography_list=ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.bibliography_lists[bibliography_list_key]);
 			
-
 			citation_processor.updateItems(bibliography_list);
 			
-			output = citation_processor.makeBibliography();
-			alert(output);
 			//output
+			var bibliography_selector_key = ir_citation_jQuery(this).attr('data-ir_citation_bibliography_selector');
+			if (bibliography_selector_key != undefined) {//if there is a bibliography selector object
+				
+				bibliography_selector=ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.bibliography_selectors[bibliography_selector_key]);
+				output = citation_processor.makeBibliography(bibliography_selector);
+			}
+			else {//no selector object
+				output = citation_processor.makeBibliography();
+			}
+			
 			if (output && output.length && output[1].length){
 				output = output[0].bibstart + output[1].join("") + output[0].bibend;
 				ir_citation_jQuery(this).html(output);

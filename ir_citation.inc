@@ -132,6 +132,24 @@ function load_bibliography_list_for_javascript($bibliography_list, $variable_nam
 }
 
 /**
+ * This function will add a bibliography selector to 
+ * @param string $bibliography_selector
+ *   json string representing a selector for bibliographies:
+ *   http://gsl-nagoya-u.net/http/pub/citeproc-doc.html#selective-output
+ * @param string $variable_name
+ *   This name to make the json available under.
+ */
+function load_bibliography_selector($bibliography_selector, $variable_name) {
+    drupal_add_js( array(
+    'ir_citation' => array(
+      'bibliography_selectors' => array(
+        $variable_name => $bibliography_selector,
+      )
+    )
+  ), 'setting');
+}
+
+/**
  * This function will make available the supplied citation object json for use with citeproc-js
  * on the current page being generated's javacript
  * @param string $variable_name
@@ -140,7 +158,7 @@ function load_bibliography_list_for_javascript($bibliography_list, $variable_nam
  *   The json to make available.  The formatting can be found here: 
  *   http://gsl-nagoya-u.net/http/pub/citeproc-doc.html#citation-data-object
  */
-function load_citeproc_citation_object_for_javascript($variable_name, $json) {
+function load_citeproc_citation_object_for_javascript($json, $variable_name) {
   drupal_add_js( array(
     'ir_citation' => array(
       'citation_objects' => array(
