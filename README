@@ -1,4 +1,6 @@
+This is a drupal module meant to aid in the use of citeproc-js.
+Currently this module does not support the disambiguation features of citeproc-js.
+
 This module is currently experimental. Under heavy development.
-It is a drupal module meant to aid in the use of citeproc-js.
-It relies hevily on the demo code from citeproc-js.
+It relies hevily on the demo code from citeproc-js for testing.
 This relies on the fedora-api at git@github.com:Islandora/islandora_fedora_api.git  BRANCH:6.XWillXP

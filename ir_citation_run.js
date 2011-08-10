@@ -1,6 +1,7 @@
 /**
  * @file
- *   This kicks off the citation process.
+ *   This kicks off the citation process.  Currently this module does not support the disambiguation 
+ *   features of citeproc-js.
  * @author 
  *   William Panting
  */
@@ -36,7 +37,7 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 		  
 		  //append citation object to engine
 		  var citation = citation_processor.appendCitationCluster(citation_object);
-		  
+		  alert(citation);
 		  //insert citation on page
 		  ir_citation_jQuery(this).html(citation[0][1]);
 	  }
