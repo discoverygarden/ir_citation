@@ -1024,12 +1024,16 @@ function ir_citation_get_demo_html() {
     </p>
     
     
+
     <h2>References</h2>
-    
-    
+	<div class="hangindent" id="chicago_author_date">
+[Page generation failure.  The bibliography processor requires a browser with Javascript enabled.]</div>
+
     <div class="heading pagebreak">
        Bluebook + Chicago Fullnote Bibliography
     </div>
+    
+    
     <p>
       Bei un gewëss Hämmelsbrot d\'Margréitchen, gét Noper blëtzen
       Dauschen am.<sup>(1)</sup> Op dan engem Blieder Feierwon, un der
@@ -1086,6 +1090,32 @@ function ir_citation_get_demo_html() {
     <div class="footnote">
       <sup>(11)</sup> <span class="fntext ir_citation" data-ir_citation_style="bluebook_demo" data-ir_citation_object="citationBB11"  data-ir_citation_abbreviations="default"  id="citation11" name="citation">[code again] [regulation]</span>
     </div>
+    
+    
+    <h2>Bibliography</h2>
+	<h3>Legal Resources</h3>
+	<div class="hangindent" id="bluebook_demo_legal_stuff"><!-- See NOTE above --></div>
+	<h3>Books</h3>
+	<div class="hangindent" id="bluebook_demo_books"><!-- See NOTE above --></div>
+	<h3>Articles</h3>
+	<div class="hangindent" id="bluebook_demo_articles"><!-- See NOTE above --></div>
+    <div class="heading pagebreak">
+       Per-author publication listing
+    </div>
+    <div class="dateindent"><!-- See NOTE above -->
+  	  <div id="chicago_author_date_listing"></div>
+	</div>
+
+
+    <div class="heading pagebreak">
+       IEEE style ("slightly weird" abbreviations)
+    </div>
+	<div id="ieee"></div>
+	
+    <div class="heading pagebreak">
+       Chicago Fullnote Bibliography (quotes inside punctuation, "default" abbreviations)
+    </div>
+	<div id="chicago_fullnote_bibliography2">[Placeholder]</div>
   ';
 }
 
