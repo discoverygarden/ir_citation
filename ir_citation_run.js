@@ -26,126 +26,38 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 		  
 		  //add abbreviations if they exist
 		  var abbreviations = ir_citation_jQuery(this).attr('data-ir_citation_abbreviations');
-		  if (abbreviations) {
+		  if (abbreviations!=undefined) {
 			  citation_processor.setAbbreviations(abbreviations);
 		  }
 		  
-		  //get citation object
-		  var citation_object_name = ir_citation_jQuery(this).attr('data-ir_citation_object');
-		  var citation_object_string = Drupal.settings.ir_citation.citation_objects[citation_object_name];
-		  var citation_object = ir_citation_jQuery.parseJSON(citation_object_string);
-		  
-		  //append citation object to engine
-		  var citation = citation_processor.appendCitationCluster(citation_object);
-		  //insert citation on page
-		  ir_citation_jQuery(this).html(citation[0][1]);
+		  //handle bibliography elements
+		  var bibliography_list_key = ir_citation_jQuery(this).attr('data-ir_citation_bibliography_list');
+		  if (bibliography_list_key!=undefined) {			 
+			bibliography_list=ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.bibliography_lists[bibliography_list_key]);
+			
+
+			citation_processor.updateItems(bibliography_list);
+			
+			output = citation_processor.makeBibliography();
+			alert(output);
+			//output
+			if (output && output.length && output[1].length){
+				output = output[0].bibstart + output[1].join("") + output[0].bibend;
+				ir_citation_jQuery(this).html(output);
+			}
+		  }
+		  //handle single citation elements
+		  else {
+			  //get citation object
+			  var citation_object_name = ir_citation_jQuery(this).attr('data-ir_citation_object');
+			  var citation_object_string = Drupal.settings.ir_citation.citation_objects[citation_object_name];
+			  var citation_object = ir_citation_jQuery.parseJSON(citation_object_string);
+			  
+			  //append citation object to engine
+			  var citation = citation_processor.appendCitationCluster(citation_object);
+			  //insert citation on page
+			  ir_citation_jQuery(this).html(citation[0][1]);
+		  }
 	  }
 	);
-	
-	/*
-	   //BIBLIOGRAPHY CODE
-		output = citeproc.makeBibliography();
-		if (output && output.length && output[1].length){
-			output = output[0].bibstart + output[1].join("") + output[0].bibend;
-			ir_citation_jQuery('#'+"chicago_author_date").html(output);
-		}*/
-	/*
-	var cases = {
-			"include" : [
-				{
-					"field" : "type",
-					"value" : "legal_case"
-				},
-				{
-					"field" : "type",
-					"value" : "legislation"
-				}
-			]
-		};
-		
-		
-	   //BIBLIOGRAPHY CODE
-		output = citeproc.makeBibliography(cases);
-		if (output && output.length && output[1].length){
-			output = output[0].bibstart + output[1].join("") + output[0].bibend;
-			ir_citation_jQuery('#'+"bluebook_demo_legal_stuff").html(output);
-		}
-		*/
-		
-	/*
-		var books = {
-			"select" : [
-				{
-					"field" : "type",
-					"value" : "book"
-				}
-			]
-		};
-		
-		
-	   //BIBLIOGRAPHY CODE
-		output = citeproc.makeBibliography(books);
-		if (output && output.length && output[1].length){
-			output = output[0].bibstart + output[1].join("") + output[0].bibend;
-			ir_citation_jQuery('#'+"bluebook_demo_books").html(output);
-		}
-		*/
-		
-	/*
-		var articles = {
-			"exclude" : [
-				{
-					"field" : "type",
-					"value" : "book"
-				},
-				{
-					"field" : "type",
-					"value" : "legal_case"
-				},
-				{
-					"field" : "type",
-					"value" : "legislation"
-				}
-			]
-		};
-		
-	
-	   //BIBLIOGRAPHY CODE
-		output = citeproc.makeBibliography(articles);
-		if (output && output.length && output[1].length){
-			output = output[0].bibstart + output[1].join("") + output[0].bibend;
-			ir_citation_jQuery('#'+"bluebook_demo_articles").html(output);
-		}
-*/
-		// Listing
-		
-		citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_author_date_listing);
-		citeproc.updateItems(["ITEM-1", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6", "ITEM-7", "ITEM-8","ITEM-9"]);
-		citeproc.setAbbreviations("default");
-		
-		output = citeproc.makeBibliography();
-		if (output && output.length && output[1].length){
-			output = output[0].bibstart + output[1].join("") + output[0].bibend;
-			ir_citation_jQuery('#'+"chicago_author_date_listing").html(output);
-		}
-
-		// IEEE
-		citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.ieee);
-		citeproc.updateItems(["ITEM-1", "ITEM-2", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6"]);
-		citeproc.setAbbreviations("slightly_weird");
-		output = citeproc.makeBibliography();
-		if (output && output.length && output[1].length){
-			output = output[0].bibstart + output[1].join("") + output[0].bibend;
-			ir_citation_jQuery('#'+"ieee").html(output);
-		}
-
-		// Annotated
-		citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_fullnote_bibliography2);
-		citeproc.updateItems(["ITEM-1", "ITEM-2", "ITEM-3", "ITEM-4", "ITEM-5", "ITEM-6"]);
-		citeproc.setAbbreviations("default");
-		output = citeproc.makeBibliography();
-		if (output && output.length && output[1].length){
-			output = output[0].bibstart + output[1].join("") + output[0].bibend;
-			ir_citation_jQuery('#'+"chicago_fullnote_bibliography2").html(output);
-		}
 }

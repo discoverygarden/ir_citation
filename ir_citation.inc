@@ -119,10 +119,12 @@ function load_citeproc_json_for_javascript($variable_name, $citeproc_json) {
  *   This name to make the json available under.
  */
 function load_bibliography_list_for_javascript($bibliography_list, $variable_name) {
+  
   $bibliography_json=json_encode($bibliography_list);
+  
   drupal_add_js( array(
     'ir_citation' => array(
-      'citeproc_json' => array(
+      'bibliography_lists' => array(
         $variable_name => $bibliography_json,
       )
     )
@@ -157,7 +159,6 @@ function load_citeproc_citation_object_for_javascript($variable_name, $json) {
  *   The xml CSL to make available.
  */
 function load_csl_for_javascript($variable_name, $csl) {
-  //escape quotes?
   drupal_add_js( array(
     'ir_citation' => array(
       'csl' => array(
