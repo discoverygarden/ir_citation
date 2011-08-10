@@ -1,6 +1,6 @@
 /**
  * @file
- *   This kicks off the citation process.  Currently this module does not support the disambiguation 
+ *   This kicks off the citation process.  Currently this module does not support all the disambiguation 
  *   features of citeproc-js, for now to get them you should write your own javascript to overide ir_citation_run.js.
  * @author 
  *   William Panting
@@ -116,7 +116,7 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 			output = output[0].bibstart + output[1].join("") + output[0].bibend;
 			ir_citation_jQuery('#'+"bluebook_demo_articles").html(output);
 		}
-
+*/
 		// Listing
 		
 		citeproc = new CSL.Engine(sys,Drupal.settings.ir_citation.csl.chicago_author_date_listing);
@@ -148,5 +148,4 @@ Drupal.behaviors.islandora_institutional_repository_cite_make= function (context
 			output = output[0].bibstart + output[1].join("") + output[0].bibend;
 			ir_citation_jQuery('#'+"chicago_fullnote_bibliography2").html(output);
 		}
-	*/
 }

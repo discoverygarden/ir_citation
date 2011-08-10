@@ -111,6 +111,25 @@ function load_citeproc_json_for_javascript($variable_name, $citeproc_json) {
 }
 
 /**
+ * This function will make avaialbe the list of citations to use in a bibliography in json formated string
+ * so it can be made into a JavaScript array.
+ * @param array $bibliography_list
+ *   This array is the list of names of the json meta data citation objects to include in the citation
+ * @param string $variable_name
+ *   This name to make the json available under.
+ */
+function load_bibliography_list_for_javascript($bibliography_list, $variable_name) {
+  $bibliography_json=json_encode($bibliography_list);
+  drupal_add_js( array(
+    'ir_citation' => array(
+      'citeproc_json' => array(
+        $variable_name => $bibliography_json,
+      )
+    )
+  ), 'setting');
+}
+
+/**
  * This function will make available the supplied citation object json for use with citeproc-js
  * on the current page being generated's javacript
  * @param string $variable_name

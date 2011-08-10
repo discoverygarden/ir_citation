@@ -1094,11 +1094,11 @@ function ir_citation_get_demo_html() {
     
     <h2>Bibliography</h2>
 	<h3>Legal Resources</h3>
-	<div class="hangindent" id="bluebook_demo_legal_stuff"><!-- See NOTE above --></div>
+	<div class="hangindent" id="bluebook_demo_legal_stuff"></div>
 	<h3>Books</h3>
-	<div class="hangindent" id="bluebook_demo_books"><!-- See NOTE above --></div>
+	<div class="hangindent" id="bluebook_demo_books"></div>
 	<h3>Articles</h3>
-	<div class="hangindent" id="bluebook_demo_articles"><!-- See NOTE above --></div>
+	<div class="hangindent" id="bluebook_demo_articles"></div>
     <div class="heading pagebreak">
        Per-author publication listing
     </div>
