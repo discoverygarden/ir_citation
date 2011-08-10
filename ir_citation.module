@@ -1125,7 +1125,7 @@ function ir_citation_get_demo_html() {
 	
     <div class="heading pagebreak">
        Chicago Fullnote Bibliography (quotes inside punctuation, "default" abbreviations)
-    </div>
+    </div><!--data-ir_citation_bibliography_selector="test"-->
 	<div id="chicago_fullnote_bibliography2" class="ir_citation" data-ir_citation_style="chicago_fullnote_bibliography2" data-ir_citation_abbreviations="default" data-ir_citation_bibliography_list="chicago_fullnote_bibliography2">[Placeholder]</div>
   ';
 }
