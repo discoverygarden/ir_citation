@@ -29,6 +29,9 @@ ir_citation_sys.prototype.retrieveItem = function(id){
  *   Identifier for the localization data
  */
 ir_citation_sys.prototype.retrieveLocale = function(lang){
+	/*drupal made me do it, Drupal makes sure to preserve a string sent to settings as 
+	 * it exists in PHP so we have to re-eval to get the intended value much like jQuery.parseJSON()
+	 * is doing in the other sys functions*/
 	var locale = eval("'"+Drupal.settings.ir_citation.locale[lang]+"'");
 	return locale;
 };
