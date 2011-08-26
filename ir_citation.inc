@@ -169,21 +169,6 @@ function load_citeproc_citation_object_for_javascript($json, $variable_name) {
 }
 
 /**
- * This is a convienence function that will create a basic citation object
- * @param string $id
- *   This is the id that the citeproc engine will use to find the citation, so it needs to be the same as the $varaible_name
- *   of one of the uploaded citeproc citation data objects
- */
-function create_basic_citation_object_json($id) {
-  return '{
-	"citationItems": [
-        {
-			"id":"'.$id.'"
-		}
-	]}';
-}
-
-/**
  * This function will make available the supplied CSL string for use with citeproc-js
  * on the current page being generated's javacript
  * @param string $variable_name
@@ -240,27 +225,4 @@ function load_abbreviation($name, $var_type, $abbreviation_data) {
       )
     )
   ), 'setting');
-}
-
-/**************
- * Higher Level API
- * 
- * These functions make it easier to use the ir_citation module.
- * 
- * They are meant to only be the only interface with this module.  
- * Use the other functions for more detailed work at your own risk.
- * They may conflict with use of the intended API.
- * **************/
-
-/**
- * This is a convienence function that will create and upload a basic citation object
- * @param string $json_data_name
- *   It sets the id for the create_basic_citation_object_json function.
- *   This needs to match one of the names of a meta data json objects uploaded 
- * @param string $variable_name
- *   This name to make the json available under.
- */
-function create_and_load_basic_citation_object_for_javascript($json_data_name, $variable_name) {
-  $json=create_basic_citation_object_json($json_data_name);
-  load_citeproc_citation_object_for_javascript($json, $variable_name);
 }

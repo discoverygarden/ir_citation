@@ -5,7 +5,9 @@
  * @author
  *   William Panting
  * @todo
- *   put in access permissions
+ *   put in access permissions?
+ * @todo
+ *   rename citeproc_json to something more meaningful like meta_data_object
  */
 
 /**
@@ -34,6 +36,14 @@ function ir_citation_menu() {
  *   replace these add_js calls with custom wrapper functions
  */
 function ir_citation_cite() {
+  //init
+  module_load_include('inc', 'ir_citation', 'ir_citation.api');
+  module_load_include('inc', 'ir_citation', 'ir_citation');
+  
+  /*TESTY TESTY OBJECT ORIENTY*/
+  $test= new IslandoraCitationAPI();
+  dsm($test->getUID());
+  
   //init
   module_load_include('inc', 'ir_citation', 'ir_citation');
 
@@ -1017,20 +1027,20 @@ function ir_citation_get_demo_html() {
     
     
     <p>
-       Teren ald‘on etelotya ep‘ ma, murm‘ leuca rempa nu loc, nar
-       rax‘ estel naitya oa. <span id="cad1" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD1"
-       name="citation_cad">[cite]</span> Nu mir anca costa, arca rond‘
-       liŽva ‘a huo. <span id="cad2" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD2" name="citation_cad">[cite]</span>
-       Aiw‘ pelentul tol sœ. <span id="cad3" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD3"
-       name="citation_cad">[cite]</span> èa har‘ l’n‘ tenna mel, eques
-       talta ataqua qua sœ. <span id="cad4" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD4"
-       name="citation_cad">[cite]</span> òv‘ ataqua simpina caimass‘
-       us, sir ronyo haloit‘ tareldar et, nŽ man‘ mitta liquis
-       eru. <span id="cad5" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD5" name="citation_cad">[cite]</span> Oi t‡p
-       laic‘ nainanyŽna leryalehtya, sindar nostal‘ at
+       Teren aldï¿½on etelotya epï¿½ ma, murmï¿½ leuca rempa nu loc, nar
+       raxï¿½ estel naitya oa. <span id="cad1" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD1"
+       name="citation_cad">[cite]</span> Nu mir anca costa, arca rondï¿½
+       liï¿½va ï¿½a huo. <span id="cad2" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD2" name="citation_cad">[cite]</span>
+       Aiwï¿½ pelentul tol sï¿½. <span id="cad3" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD3"
+       name="citation_cad">[cite]</span> ï¿½a harï¿½ lï¿½nï¿½ tenna mel, eques
+       talta ataqua qua sï¿½. <span id="cad4" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD4"
+       name="citation_cad">[cite]</span> ï¿½vï¿½ ataqua simpina caimassï¿½
+       us, sir ronyo haloitï¿½ tareldar et, nï¿½ manï¿½ mitta liquis
+       eru. <span id="cad5" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD5" name="citation_cad">[cite]</span> Oi tï¿½p
+       laicï¿½ nainanyï¿½na leryalehtya, sindar nostalï¿½ at
        axa. <span id="cad6" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD6" name="citation_cad">[cite]</span> Wen
-       namna sairon tellaur‘ er, hahta pend‘ quesset lia us, rŽ apa
-       l’n‘ cotumo mŽtima. <span id="cad7" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD7"
+       namna sairon tellaurï¿½ er, hahta pendï¿½ quesset lia us, rï¿½ apa
+       lï¿½nï¿½ cotumo mï¿½tima. <span id="cad7" class="ir_citation" data-ir_citation_style="chicago_author_date" data-ir_citation_object="citationCAD7"
        name="citation_cad">[cite]</span>
     </p>
     
@@ -1046,22 +1056,22 @@ function ir_citation_get_demo_html() {
     
     
     <p>
-      Bei un gew‘ss HŠmmelsbrot d\'MargrŽitchen, gŽt Noper bl‘tzen
+      Bei un gewï¿½ss Hï¿½mmelsbrot d\'Margrï¿½itchen, gï¿½t Noper blï¿½tzen
       Dauschen am.<sup>(1)</sup> Op dan engem Blieder Feierwon, un der
-      ston zielen duerch.<sup>(2)</sup> Hin wielen heemlech mŠ, hu ech
-      Žiweg klinzecht.<sup>(3)</sup> Ass an Himmel r‘schten, wee
-      d\'wŠiss bessert Freiesch dŽ, hirem d\'Leit Blieder eng
+      ston zielen duerch.<sup>(2)</sup> Hin wielen heemlech mï¿½, hu ech
+      ï¿½iweg klinzecht.<sup>(3)</sup> Ass an Himmel rï¿½schten, wee
+      d\'wï¿½iss bessert Freiesch dï¿½, hirem d\'Leit Blieder eng
       an.<sup>(4)</sup> Si aus iwer Mamm, geet schlon op get, de Engel
       rifft gudden net.<sup>(5)</sup>
     </p>
     <p>
-      Aus um fest spilt gefŠllt, hun z‘nne r‘scht kŽ.<sup>(6)</sup> MŠ
-      RŠis sech gemaacht dŽi, dŽ och Welt HŠren, ech dŽnen geplot
+      Aus um fest spilt gefï¿½llt, hun zï¿½nne rï¿½scht kï¿½.<sup>(6)</sup> Mï¿½
+      Rï¿½is sech gemaacht dï¿½i, dï¿½ och Welt Hï¿½ren, ech dï¿½nen geplot
       d\'Gaassen et.<sup>(7)</sup> Hier beschte verstoppen da ech, vill
-      heemlech net um.<sup>(8)</sup> Esou Scholl schlŽit un fir. Wat
+      heemlech net um.<sup>(8)</sup> Esou Scholl schlï¿½it un fir. Wat
       ma\'n kille d\'Hiezer wa, frou Mecht Schiet am fir.<sup>(9)</sup>
-      MŠ r‘m keng Engel bleiwe,<sup>(10)</sup> g‘tt Stret geplot dŽ dem, dŽi z‘nne
-      gudden lšschteg op.<sup>(11)</sup>
+      Mï¿½ rï¿½m keng Engel bleiwe,<sup>(10)</sup> gï¿½tt Stret geplot dï¿½ dem, dï¿½i zï¿½nne
+      gudden lï¿½schteg op.<sup>(11)</sup>
     </p>
 
     <div style="width:5em">

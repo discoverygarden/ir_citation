@@ -85,7 +85,7 @@ CiteInserter.prototype.insertCite = function (cites) {
 		pointedStickInnerHtml(id,cites[i][1]);
 	}
 	this.idx += 1;
-}
+};
 
 var citationCAD1 = {
 	"citationItems": [
