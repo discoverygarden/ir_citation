@@ -15,6 +15,8 @@
 *  Implement data duplication prevention strategy... 
 *  we keep a record of all data inputed and the aliases at this level
 *  so that we only add one copy Javascript side.
+*@todo
+*  somehow prevent the function load_citeproc_javascript() from running multiple times...
 */
 
 /**
@@ -55,7 +57,9 @@
 class IslandoraCitationAPI {
   
   /*prefixes all javascirpt variables in the form
-     $uniquePrefix_var_name to prevent collisions.*/
+     $uniquePrefix_var_name to prevent collisions.
+     This should be compeletely hidden from the users
+     */
   protected $uniquePrefix='';
   
   /*These two arrays are used to map aliases to their content using an internal pointer
@@ -191,7 +195,30 @@ class IslandoraCitationAPI {
     return $citeproc_markup;
   }
   
+  /**
+  * Function will create a basic citation object
+   * @param array $meta_data_alias_list
+  *   This is an array of the aliases (meta data objects) that the citeproc
+  *   engine will use to create the bibliography,
+  *   each member of the list needs to be the same as
+  *   one of the uploaded citeproc citation meta data objects
+  * @param array $bibliography_list_alias
+  *
+  * @return
+  *   The json of the bibliography list
+  */
+  public function loadBasicBibliographyList(array $meta_data_alias_list, $bibliography_list_alias) {
+  module_load_include('inc', 'ir_citation', 'ir_citation');
+      // iterate through aliases adding the prefix
+  foreach ($meta_data_alias_list as $meta_data_alias_key=>$meta_data_alias) {
+  $meta_data_alias_list[$meta_data_alias_key] = $this->uniquePrefix . $meta_data_alias;
+  }
   
+  // add the prefix to the csl alias
+  $bibliography_list_alias = $this->uniquePrefix . $bibliography_list_alias;
+  //send to javascript
+  return load_bibliography_list_for_javascript($meta_data_alias_list, $bibliography_list_alias);
+  } 
   
   /*
    *PRIVATE HELPER FUNCTIONS 
@@ -199,31 +226,19 @@ class IslandoraCitationAPI {
   
   /**
   * Function will create a basic citation object
-  * @param string $id
-  *   This is the id that the citeproc engine will use to find the citation, so it needs to be the same as the $varaible_name
-  *   of one of the uploaded citeproc citation data objects
+  * @param string $meta_data_aliases
+  *   This is the id that the citeproc engine will use to find the citation,
+  *   so it needs to be the same as 
+  *   one of the uploaded citeproc citation meta data objects
   * @return
   *   The json of the citaiton object
   */
-  private function createBasicCitationObject($id) {
+  private function createBasicCitationObject($meta_data_alias) {
     return '{
   	"citationItems": [
           {
   			"id":"' . $this->uniquePrefix . $id . '"
   		}
   	]}';
-  }  
-  
-  /**
-  * Function will create a basic citation object
-  * @param array $ids
-  *   This is an array of the ids that the citeproc engine will use to create the bibliography, 
-  *   each member of the list needs to be the same as the $varaible_name
-  *   of one of the uploaded citeproc citation data objects
-  * @return
-  *   The json of the bibliography list
-  */
-  private function createBasicBibliographyList(array $ids) {
-    return '';
   }
 }

@@ -398,7 +398,7 @@ function ir_citation_run_demo_includes() {
   load_citeproc_json_from_mods($variable_name, $cite_mods);
 
   //fedora grab test [success]
-  //load_citeproc_json_from_fedora_pid('Awill:258', $variable_name);
+  //load_meta_data_from_fedora_pid('Awill:258', $variable_name);
   
   //strait json
   $variable_name='ITEM-1';
@@ -422,7 +422,7 @@ function ir_citation_run_demo_includes() {
 		},
 		"type": "book"
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-2';
   $citeproc_json='{
@@ -448,7 +448,7 @@ function ir_citation_run_demo_includes() {
 		"type": "article-journal",
         "note": "Note the flip-flop behavior of the quotations marks around \"informal\" in the title of this citation.  This works for quotation marks in any style locale.  Oh, and, uh, these notes illustrate the formatting of annotated bibliographies (!)."
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-3';
   $citeproc_json='{
@@ -491,7 +491,7 @@ function ir_citation_run_demo_includes() {
 		"DOI":"10.1128/AEM.02396-09",
 		"type": "article-journal"
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-4';
   $citeproc_json='{
@@ -516,7 +516,7 @@ function ir_citation_run_demo_includes() {
 			]
 		}
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-5';
   $citeproc_json='{
@@ -624,7 +624,7 @@ function ir_citation_run_demo_includes() {
 		"type": "article-journal"
 
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-6';
   $citeproc_json='{
@@ -650,7 +650,7 @@ function ir_citation_run_demo_includes() {
 		},
 		"type": "book"
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-7';
   $citeproc_json='{
@@ -672,7 +672,7 @@ function ir_citation_run_demo_includes() {
 		},
 		"type": "article-journal"
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-8';
   $citeproc_json='{
@@ -699,7 +699,7 @@ function ir_citation_run_demo_includes() {
 		"type": "article-journal"
 
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-9';
   $citeproc_json='{
@@ -746,7 +746,7 @@ function ir_citation_run_demo_includes() {
 		},
 		"type": "article-journal"
 	}';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-10';
   $citeproc_json='{
@@ -764,7 +764,7 @@ function ir_citation_run_demo_includes() {
         "type": "legal_case", 
         "volume": 73
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-11';
   $citeproc_json='{
@@ -782,7 +782,7 @@ function ir_citation_run_demo_includes() {
         "type": "legal_case", 
         "volume": 541
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-12';
   $citeproc_json='{
@@ -800,7 +800,7 @@ function ir_citation_run_demo_includes() {
         "type": "legal_case", 
         "volume": 543
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-13';
   $citeproc_json='{
@@ -816,7 +816,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legislation"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-14';
   $citeproc_json='{
@@ -833,7 +833,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legislation"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-15';
   $citeproc_json='{
@@ -851,7 +851,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legislation"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-16';
   $citeproc_json='{
@@ -869,7 +869,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legislation"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-17';
   $citeproc_json='{
@@ -887,7 +887,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legal_case"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-18';
   $citeproc_json='{
@@ -905,7 +905,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legal_case"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-19';
   $citeproc_json='{
@@ -923,7 +923,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legal_case"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   $variable_name='ITEM-20';
   $citeproc_json='{
@@ -943,7 +943,7 @@ function ir_citation_run_demo_includes() {
 		},
         "type": "legal_case"
     }';
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
   
   
   

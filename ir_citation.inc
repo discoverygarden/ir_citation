@@ -39,7 +39,7 @@ function load_citeproc_javascript() {
  *   the name in the drupal.settings object that will hold the completed json 
  *   If this is NULL it gets the value of $fedora_pid
  */
-function load_citeproc_json_from_fedora_pid($fedora_pid, $variable_name=NULL) {
+function load_meta_data_from_fedora_pid($fedora_pid, $variable_name=NULL) {
   if ($variable_name==NULL) {//allows to do this with only setting $fedora_pid
     $variable_name=$fedora_pid;
   }
@@ -62,7 +62,7 @@ function load_citeproc_json_from_fedora_pid($fedora_pid, $variable_name=NULL) {
 
 /** 
  * This is a convienence function that simply wraps mods_to_citeproc_json
- * and load_citeproc_json_for_javascript
+ * and load_metadata_object_for_javascript
  * @param string $variable_name
  *   The id to insert into the json object, needs to be unique for the page, also
  *   the name in the drupal.settings object that will hold the completed json 
@@ -73,7 +73,7 @@ function load_citeproc_json_from_mods($variable_name, $cite_mods) {
   //get json
   $citeproc_json=mods_to_citeproc_json($cite_mods, $variable_name);
   //load json in javascript
-  load_citeproc_json_for_javascript($variable_name, $citeproc_json);
+  load_metadata_object_for_javascript($variable_name, $citeproc_json);
 }
 
 /**
@@ -97,14 +97,14 @@ function mods_to_citeproc_json($cite_mods, $item_id) {
  * on the current page being generated's javacript
  * @param string $variable_name
  *   This name to make the json available under.
- * @param stirng $citeproc_json
+ * @param stirng $meta_data_object
  *   The json to make available.
  */
-function load_citeproc_json_for_javascript($variable_name, $citeproc_json) {
+function load_metadata_object_for_javascript($variable_name, $meta_data_object) {
   drupal_add_js( array(
     'ir_citation' => array(
-      'citeproc_json' => array(
-        $variable_name => $citeproc_json,
+      'meta_data_objects' => array(
+        $variable_name => $meta_data_object,
       )
     )
   ), 'setting');
@@ -117,6 +117,8 @@ function load_citeproc_json_for_javascript($variable_name, $citeproc_json) {
  *   This array is the list of names of the json meta data citation objects to include in the citation
  * @param string $variable_name
  *   This name to make the json available under.
+ * @return string $bibliography_json
+ *   This is the json that will actualy get added javascript side
  */
 function load_bibliography_list_for_javascript($bibliography_list, $variable_name) {
   
@@ -129,6 +131,8 @@ function load_bibliography_list_for_javascript($bibliography_list, $variable_nam
       )
     )
   ), 'setting');
+  
+  return $bibliography_json;
 }
 
 /**

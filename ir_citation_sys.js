@@ -20,7 +20,7 @@ var ir_citation_sys = function(){
  *   Identifier for the citaiton data
  */
 ir_citation_sys.prototype.retrieveItem = function(id){
-	return ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.citeproc_json[id]);
+	return ir_citation_jQuery.parseJSON(Drupal.settings.ir_citation.meta_data_objects[id]);
 };
 
 /**
