@@ -37,15 +37,9 @@ function ir_citation_menu() {
  */
 function ir_citation_cite() {
   //init
-  module_load_include('inc', 'ir_citation', 'ir_citation.api');
   module_load_include('inc', 'ir_citation', 'ir_citation');
+  test_api();
   
-  /*TESTY TESTY OBJECT ORIENTY*/
-  $test= new IslandoraCitationAPI();
-  dsm($test->getUID());
-  
-  //init
-  module_load_include('inc', 'ir_citation', 'ir_citation');
 
   ir_citation_run_demo_includes();
   load_citeproc_javascript();
@@ -54,6 +48,68 @@ function ir_citation_cite() {
   $output=$output . ir_citation_get_demo_html();
   
   return $output;
+}
+
+/**
+ * This function is being used to test the api
+ */
+function test_api() {
+  module_load_include('inc', 'ir_citation', 'ir_citation.api');
+  $test= new IslandoraCitationAPI();
+  dsm($test->getUID());
+  
+  /*
+   //adding constructed basic citation
+  dsm($test->loadBasicCitationObject($meta_data_alias, $citation_object_alias));
+  //adding metadata from pid
+  dsm($test->);
+  
+  //adding metadata from mods
+  dsm($test->);
+  
+  //strait in
+  $type='';
+  dsm($test->addData($type, $alias, $content, $var_type=NULL));
+  dsm($test->getContent($alias));
+  
+  $type='';
+  dsm($test->addData($type, $alias, $content, $var_type=NULL));
+  dsm($test->getContent($alias));
+  
+  $type='';
+  dsm($test->addData($type, $alias, $content, $var_type=NULL));
+  dsm($test->getContent($alias));
+  
+  $type='';
+  dsm($test->addData($type, $alias, $content, $var_type=NULL));
+  dsm($test->getContent($alias));
+  
+  $type='';
+  dsm($test->addData($type, $alias, $content, $var_type=NULL));
+  dsm($test->getContent($alias));
+  
+  $type='';
+  dsm($test->addData($type, $alias, $content, $var_type=NULL));
+  dsm($test->getContent($alias));
+  
+  $type='';
+  dsm($test->addData($type, $alias, $content, $var_type=NULL));
+  dsm($test->getContent($alias));
+  
+  //get a bibliography
+  dsm($test->getCitationHTML($csl_alias, array $biblist_or_citation_alias=array(
+    'bibliography_list' => NULL, 'citation' => NULL), array $optional_args=array(
+      'bibliography_slector' => NULL,
+      'abbreviations' => NULL
+      )));
+  
+  //get a citation
+  dsm($test->getCitationHTML($csl_alias, array $biblist_or_citation_alias=array(
+    'bibliography_list' => NULL, 'citation' => NULL), array $optional_args=array(
+      'bibliography_slector' => NULL,
+      'abbreviations' => NULL
+      )));
+  */
 }
 
 /**

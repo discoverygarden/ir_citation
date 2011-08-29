@@ -45,16 +45,10 @@ function load_meta_data_from_fedora_pid($fedora_pid, $variable_name=NULL) {
   }
   
   //get the mods from fedora
-  module_load_include('object.inc', 'islandora_fedora_api'); //for getting an object
-  $object= new FedoraObject($fedora_pid);
-  global $user;
-  $object_datastreams=$object->get_datastreams();
-  if (!isset($object_datastreams['MODS'])) {
+  $cite_mods=get_mods_from_pid($fedora_pid);
+  if (!cite_mods) {
     return FALSE;
   }
-  //get the DS xml
-  $mods_datastream=$object_datastreams['MODS'];
-  $cite_mods=$mods_datastream->__get('content');
   
   //load json
   load_citeproc_json_from_mods($variable_name, $cite_mods);
@@ -229,4 +223,28 @@ function load_abbreviation($name, $var_type, $abbreviation_data) {
       )
     )
   ), 'setting');
+}
+
+
+/**
+ * This will get the mods datastream from the indicated fedora pid
+ * @param string $pid
+ *   The pid to get the mods datastream from
+ * @return mixed $cite_mods
+ *   The string of the mods datastream from the indicate pid. Or false if there is none
+ */
+function get_mods_from_pid($pid) {
+  module_load_include('object.inc', 'islandora_fedora_api'); //for getting an object
+  $object= new FedoraObject($fedora_pid);
+  global $user;
+  $object_datastreams=$object->get_datastreams();
+  if (!isset($object_datastreams['MODS'])) {
+    return FALSE;
+  }
+  
+  //get the DS xml
+  $mods_datastream=$object_datastreams['MODS'];
+  $cite_mods=$mods_datastream->__get('content');
+  
+  return $cite_mods;
 }
