@@ -12,7 +12,8 @@
 *@todo
 *  Implement data duplication prevention strategy... 
 *  we keep a record of all data inputed and the aliases at this level
-*  so that we only add one copy Javascript side.
+*  so that we only add one copy Javascript side.  This may be difficult because of 
+*  the aliases being put directly in content [not my fualt, i swear]
 *@todo
 *  lots of testing!!!!
 */
