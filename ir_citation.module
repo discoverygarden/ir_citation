@@ -59,40 +59,64 @@ function test_api() {
   dsm($test->getUID());
   
   /*
-   //adding constructed basic citation
-  dsm($test->loadBasicCitationObject($meta_data_alias, $citation_object_alias));
+  
   //adding metadata from pid
-  dsm($test->);
+  $alias='';
+  $pid='';
+  dsm($test->addMetaDataFromPID($alias, $pid));
   
   //adding metadata from mods
-  dsm($test->);
+  $alias='';
+  $mods='';
+  dsm($test->addMetaDataFromMODS($alias, $mods));
   
   //strait in
-  $type='';
+  $type='abbreviation';
+  $alias='';
+  $content='';
+  $var_type='';
   dsm($test->addData($type, $alias, $content, $var_type=NULL));
   dsm($test->getContent($alias));
   
-  $type='';
+  $type='csl';
+  $alias='';
+  $content='';
   dsm($test->addData($type, $alias, $content, $var_type=NULL));
   dsm($test->getContent($alias));
   
-  $type='';
+  $type='bibliography_list';
+  $alias='';
+  $content='';
   dsm($test->addData($type, $alias, $content, $var_type=NULL));
   dsm($test->getContent($alias));
   
-  $type='';
+  $type='bibliography_selector';
+  $alias='';
+  $content='';
   dsm($test->addData($type, $alias, $content, $var_type=NULL));
   dsm($test->getContent($alias));
   
-  $type='';
+  $type='metadata';
+  $alias='';
+  $content='';
   dsm($test->addData($type, $alias, $content, $var_type=NULL));
   dsm($test->getContent($alias));
   
-  $type='';
+  
+   //adding constructed basic citation
+  $meta_data_alias=$alias;
+  $citation_object_alias='';
+  dsm($test->loadBasicCitationObject($meta_data_alias, $citation_object_alias));
+  
+  $type='citation';
+  $alias='';
+  $content='';
   dsm($test->addData($type, $alias, $content, $var_type=NULL));
   dsm($test->getContent($alias));
   
-  $type='';
+  $type='locale';
+  $alias='';
+  $content='';
   dsm($test->addData($type, $alias, $content, $var_type=NULL));
   dsm($test->getContent($alias));
   
