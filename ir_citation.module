@@ -58,13 +58,13 @@ function test_api() {
   $test= new IslandoraCitationAPI();
   dsm($test->getUID());
   
-  /*
+  
   
   //adding metadata from pid
-  $alias='';
-  $pid='';
+  $alias='fedoraPidNewAPITest';
+  $pid='Awill:258';
   dsm($test->addMetaDataFromPID($alias, $pid));
-  
+  /*
   //adding metadata from mods
   $alias='';
   $mods='';

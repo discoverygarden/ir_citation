@@ -204,7 +204,7 @@ class IslandoraCitationAPI {
     
     //send to javascrit side and record data localy to prevent duplication
     $type='metadata';
-    return (addData($type, $alias, $mods));
+    return ($this->addData($type, $alias, $mods));
   }
 
   //HELPFUL BUT NOT REQUIRED OPTIMAIZATION
@@ -389,7 +389,7 @@ class IslandoraCitationAPI {
   private function loadCSL($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
-    $alias=prefixAlias($alias);
+    $alias=$this->prefixAlias($alias);
     load_csl_for_javascript($alias, $content);
   }
   
@@ -401,7 +401,7 @@ class IslandoraCitationAPI {
   private function loadBibliogrpahySelector($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
-    $alias=prefixAlias($alias);
+    $alias=$this->prefixAlias($alias);
     load_bibliography_selector($content, $alias);
   }
   
@@ -413,7 +413,7 @@ class IslandoraCitationAPI {
   private function loadMetadata($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
-    $alias=prefixAlias($alias);
+    $alias=$this->prefixAlias($alias);
     load_metadata_object_for_javascript($alias, $content);
   }
   
@@ -427,7 +427,7 @@ class IslandoraCitationAPI {
   private function loadAbbreviation($content, $var_type, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
-    $alias=prefixAlias($alias);
+    $alias=$this->prefixAlias($alias);
     load_abbreviation($alias, $var_type, $content);
   }
   
@@ -439,7 +439,7 @@ class IslandoraCitationAPI {
   private function loadLocale($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
-    $alias=prefixAlias($alias);
+    $alias=$this->prefixAlias($alias);
     load_locale($alias, $content);
   }
 
@@ -450,7 +450,7 @@ class IslandoraCitationAPI {
    */
   private function loadCitation($content, $alias) {
     module_load_include('inc', 'ir_citation', 'ir_citation');
-    $alias=prefixAlias($alias);
+    $alias=$this->prefixAlias($alias);
     return (load_citeproc_citation_object_for_javascript($content, $alias));
   }
   
@@ -491,7 +491,7 @@ class IslandoraCitationAPI {
   * @return int $pointer
   *   The pointer for linking alias and content
   */
-  static function getNewPointer() {
+  private function getNewPointer() {
     $pointer=$this->pointerCount;
     $this->pointerCount = $pointer+1;
     return $pointer;

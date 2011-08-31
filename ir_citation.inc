@@ -235,7 +235,7 @@ function load_abbreviation($name, $var_type, $abbreviation_data) {
  */
 function get_mods_from_pid($pid) {
   module_load_include('object.inc', 'islandora_fedora_api'); //for getting an object
-  $object= new FedoraObject($fedora_pid);
+  $object= new FedoraObject($pid);
   global $user;
   $object_datastreams=$object->get_datastreams();
   if (!isset($object_datastreams['MODS'])) {
