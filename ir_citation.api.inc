@@ -71,16 +71,16 @@ class IslandoraCitationAPI {
     //get it and return it
     return $this->uniquePrefix;
   }
-    
+  
   /**
-   * This will return the UID being used for this object
+   * This will return the prefix being put on aliases
    * 
-   * @return int $uid
-   *   This $uid is used to prefix all javascirpt variables in the form
-   *   $uid_var_name to prevent collisions.
+   * @return string
+   *   The prefix for all javascirpt variables in the form
+   *   $uid_
    */
-  public function getUID() {
-    return $this->uniquePrefix;
+  public function getJavaScriptPrefix() {
+    return ($this->uniquePrefix . '_');
   }
    
   /**
@@ -118,6 +118,8 @@ class IslandoraCitationAPI {
    * @return mixed
    *   A string of what has been added to javaScript
    *   or FALSE if nothing was
+   * @return
+   *   The data sent to JS, or FALSE if trouble hit
    */
   public function addData($type, $alias, $content, $var_type=NULL) {
     //don't add if the alias already was used
@@ -144,7 +146,7 @@ class IslandoraCitationAPI {
       case 'bibliography_list':
         return ($this->loadBibliographyList($content, $alias));
         break;
-      case 'bibliography_slector':
+      case 'bibliography_selector':
         return ($this->loadBibliogrpahySelector($content, $alias));
         break;
       case 'metadata':
@@ -155,7 +157,7 @@ class IslandoraCitationAPI {
         break;
       case 'abbreviation':
         if ($var_type!=NULL) {// var type needs to be present for abbreviations
-          return ($this->loadAbbreviation($content, $alias, $var_type));
+          return ($this->loadAbbreviation($content, $var_type, $alias));
         }
         else {
           return FALSE;
@@ -170,41 +172,30 @@ class IslandoraCitationAPI {
   }
   
   /**
-  *This function calls $this->addMetaDataFromMODS which calls
-  *$this->addData on the final metadata object 
-  *@param string $alias
-  *  The php side name for the data.
-  *@param string $pid
-  *  The fedora pid to get the mods datastream from
-  *@return string 
-  *  the final json added.
-  */
-  public function addMetaDataFromPID($alias, $pid) {
-    module_load_include('inc', 'ir_citation', 'ir_citation');
-    //get the mods from the fedora object
-    $mods=get_mods_from_pid($pid);
-    //send to javascript
-    return ($this->addMetaDataFromMODS($alias, $mods));
-  }
-  
-  /**
-  *This function will change mods to a citation processor json metadata object
-  *and send it to javascript
-  *@param string $alias
-  *  The php side name for the data.
-  *@param string $mods
-  *  The mods metadata to change to json and send to javascript
-  *@return string 
-  *  the final json added.
-  */
-  public function addMetaDataFromMODS($alias, $mods) {
-    module_load_include('inc', 'ir_citation', 'ir_citation');
-    //get the json from the metadata
-    $json=mods_to_citeproc_json($mods, $this->prefixAlias($alias));
-    
-    //send to javascrit side and record data localy to prevent duplication
-    $type='metadata';
-    return ($this->addData($type, $alias, $mods));
+   *This is a wrapper function for future proofing the interface.
+   *It allows for more meta data sources to be added later.
+   *@param string $alias
+   *  The php side name for the data.
+   *@param string $source
+   *  The data to turn into json metadata, or where to get the data
+   *@param $source_type
+   *  Is used to determine how to handle the $source can be:
+   *  'pid'
+   *  'mods'
+   *@return 
+   *  The data added to JavaScript, or FALSE if $source_type is invalid
+   */
+  public function addMetaData($alias, $source, $source_type=NULL) {
+    switch ($source_type){
+      case 'pid':
+        return ($this->addMetaDataFromPID($alias, $source));
+        break;
+      case 'mods':
+        return ($this->addMetaDataFromMODS($alias, $source));
+        break;
+      default:
+        return FALSE;
+    }
   }
 
   //HELPFUL BUT NOT REQUIRED OPTIMAIZATION
@@ -212,9 +203,10 @@ class IslandoraCitationAPI {
    * This function will get all the aliases if one or more exists
    * that is associated with the indicated content and/or type of data
    * @param array $content_and_type
+   * @todo
+   *   abandoned the type thing so refactor to just give back the whole list if no content sent
    *
-  public function getAliasList(array $content_and_type=array(
-    'content' => NULL, 'type' => NULL)) {
+  public function getAliasList($content= NULL) {
     
     if (isset($content_and_type['content']) && isset($content_and_type['type'])) {
       
@@ -239,7 +231,7 @@ class IslandoraCitationAPI {
    *   or a string of the data. 
    */
   public function getContent($alias) {
-    if (isAliasUsed($alias)) {
+    if ($this->isAliasUsed($alias)) {
       return $this->contentPointer[$this->aliasPointer[$alias]];
     }
     else {
@@ -268,23 +260,23 @@ class IslandoraCitationAPI {
     $citeproc_markup='<span class="ir_citation" ';
     
     //csl
-    $citeproc_markup .= 'data-ir_citation_style="' . prefixAlias($csl_alias) . '" ';
+    $citeproc_markup .= 'data-ir_citation_style="' . $this->prefixAlias($csl_alias) . '" ';
     
     //abreviation
     if (isset($optional_args['abbreviations'])) {
-      $citeproc_markup .= 'data-ir_citation_abbreviations="' . prefixAlias($optional_args['abbreviations']) . '" ';
+      $citeproc_markup .= 'data-ir_citation_abbreviations="' . $this->prefixAlias($optional_args['abbreviations']) . '" ';
     }
     
     //if it's a citation
     if (isset($biblist_or_citation_alias['citation'])) {
-      $citeproc_markup .= 'data-ir_citation_object="' . prefixAlias($biblist_or_citation_alias['citation']) . '" ';
+      $citeproc_markup .= 'data-ir_citation_object="' . $this->prefixAlias($biblist_or_citation_alias['citation']) . '" ';
     }
     //if it's a bibliography
     elseif (isset($biblist_or_citation_alias['bibliography_list'])) {
-      $citeproc_markup .= 'data-ir_citation_bibliography_list="' . prefixAlias($biblist_or_citation_alias['bibliography_list']) . '" ';
+      $citeproc_markup .= 'data-ir_citation_bibliography_list="' . $this->prefixAlias($biblist_or_citation_alias['bibliography_list']) . '" ';
       //bibliography selector
       if (isset($optional_args['bibliography_slector'])) {
-      $citeproc_markup .= 'data-ir_citation_bibliography_selector="' . prefixAlias($optional_args['bibliography_slector']) . '" ';
+      $citeproc_markup .= 'data-ir_citation_bibliography_selector="' . $this->prefixAlias($optional_args['bibliography_slector']) . '" ';
       
       }
     }
@@ -339,6 +331,45 @@ class IslandoraCitationAPI {
   }
   
   /**
+  *This function calls $this->addMetaDataFromMODS which calls
+   *$this->addData on the final metadata object
+  *@param string $alias
+  *  The php side name for the data.
+  *@param string $pid
+  *  The fedora pid to get the mods datastream from
+  *@return string
+  *  the final json added.
+  */
+  private function addMetaDataFromPID($alias, $pid) {
+  module_load_include('inc', 'ir_citation', 'ir_citation');
+      //get the mods from the fedora object
+  $mods=get_mods_from_pid($pid);
+  //send to javascript
+  return ($this->addMetaDataFromMODS($alias, $mods));
+  }
+  
+  /**
+  *This function will change mods to a citation processor json metadata object
+  *and send it to javascript
+  *@param string $alias
+  *  The php side name for the data.
+  *@param string $mods
+  *  The mods metadata to change to json and send to javascript
+  *@return string
+  *  the final json added.
+  */
+  private function addMetaDataFromMODS($alias, $mods) {
+  module_load_include('inc', 'ir_citation', 'ir_citation');
+  
+  //get the json from the metadata
+  $json=mods_to_citeproc_json($mods, $this->prefixAlias($alias));
+  
+  //send to javascrit side and record data localy to prevent duplication
+  $type='metadata';
+  return ($this->addData($type, $alias, $json));
+  }
+  
+  /**
   * Function will create a basic citation object
   * @param string $meta_data_aliases
   *   This is the id that the citeproc engine will use to find the citation,
@@ -351,7 +382,7 @@ class IslandoraCitationAPI {
     return '{
   	"citationItems": [
           {
-  			"id":"' . $this->prefixAlias($id) . '"
+  			"id":"' . $this->prefixAlias($meta_data_alias) . '"
   		}
   	]}';
   }
@@ -385,36 +416,42 @@ class IslandoraCitationAPI {
   * This function wrapps adding data to JavaScript while avoiding nameing collisions
   * @param string $content
   * @param string $alias
+  * @return
+  *   The data sent to JS
   */
   private function loadCSL($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
     $alias=$this->prefixAlias($alias);
-    load_csl_for_javascript($alias, $content);
+    return (load_csl_for_javascript($alias, $content));
   }
   
   /**
   * This function wrapps adding data to JavaScript while avoiding nameing collisions
   * @param string $content
   * @param string $alias
+  * @return
+  *   The data sent to JS
   */
   private function loadBibliogrpahySelector($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
     $alias=$this->prefixAlias($alias);
-    load_bibliography_selector($content, $alias);
+    return (load_bibliography_selector($content, $alias));
   }
   
   /**
   * This function wrapps adding data to JavaScript while avoiding nameing collisions
   * @param string $content
   * @param string $alias
+  * @return
+  *   The data sent to JS
   */
   private function loadMetadata($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
     $alias=$this->prefixAlias($alias);
-    load_metadata_object_for_javascript($alias, $content);
+    return (load_metadata_object_for_javascript($alias, $content));
   }
   
   /**
@@ -423,30 +460,36 @@ class IslandoraCitationAPI {
   * @param string $var_type
   *   This type of abbreviation data. ie."institution"
   * @param string $alias
+  * @return
+  *   The data sent to JS
   */
   private function loadAbbreviation($content, $var_type, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
     $alias=$this->prefixAlias($alias);
-    load_abbreviation($alias, $var_type, $content);
+    return (load_abbreviation($alias, $var_type, $content));
   }
   
   /**
   * This function wrapps adding data to JavaScript while avoiding nameing collisions
   * @param string $content
   * @param string $alias
+  * @return
+  *   The data sent to JS
   */
   private function loadLocale($content, $alias) {
     //init
     module_load_include('inc', 'ir_citation', 'ir_citation');
     $alias=$this->prefixAlias($alias);
-    load_locale($alias, $content);
+    return (load_locale($alias, $content));
   }
 
   /**
    * This function wrapps adding data to JavaScript while avoiding nameing collisions
    * @param string $content
    * @param string $alias
+  * @return
+  *   The data sent to JS
    */
   private function loadCitation($content, $alias) {
     module_load_include('inc', 'ir_citation', 'ir_citation');
@@ -495,6 +538,17 @@ class IslandoraCitationAPI {
     $pointer=$this->pointerCount;
     $this->pointerCount = $pointer+1;
     return $pointer;
+  }
+  
+  /**
+  * This will return the UID being used for this object
+   *
+  * @return int $uid
+  *   This $uid is used to prefix all javascirpt variables in the form
+  *   $uid_var_name to prevent collisions.
+  */
+  private function getUID() {
+  return $this->uniquePrefix;
   }
 
   /*

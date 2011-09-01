@@ -38,6 +38,8 @@ function load_citeproc_javascript() {
  *   The id to insert into the json object, needs to be unique for the page, also
  *   the name in the drupal.settings object that will hold the completed json 
  *   If this is NULL it gets the value of $fedora_pid
+ * @return mixed
+ *   The metadata that was sent to JS, or false if something went wrong
  */
 function load_meta_data_from_fedora_pid($fedora_pid, $variable_name=NULL) {
   if ($variable_name==NULL) {//allows to do this with only setting $fedora_pid
@@ -51,7 +53,7 @@ function load_meta_data_from_fedora_pid($fedora_pid, $variable_name=NULL) {
   }
   
   //load json
-  load_citeproc_json_from_mods($variable_name, $cite_mods);
+  return (load_citeproc_json_from_mods($variable_name, $cite_mods));
 }
 
 /** 
@@ -62,12 +64,14 @@ function load_meta_data_from_fedora_pid($fedora_pid, $variable_name=NULL) {
  *   the name in the drupal.settings object that will hold the completed json 
  * @param string $cite_mods
  *   The mods to convert to citeproc_json for citation purposes
+ * @return
+ *   the metadata that was sent to JS
  */
 function load_citeproc_json_from_mods($variable_name, $cite_mods) {
   //get json
   $citeproc_json=mods_to_citeproc_json($cite_mods, $variable_name);
   //load json in javascript
-  load_metadata_object_for_javascript($variable_name, $citeproc_json);
+  return (load_metadata_object_for_javascript($variable_name, $citeproc_json));
 }
 
 /**
@@ -80,6 +84,8 @@ function load_citeproc_json_from_mods($variable_name, $cite_mods) {
  *   The id to insert into the json object, needs to be unique for the page
  * @return
  *   The json formated citation data
+ * @todo
+ *   Examine if this is necessary, it may just be waisted redirection now
  */
 function mods_to_citeproc_json($cite_mods, $item_id) {
   module_load_include('php', 'ir_citation', 'mods_to_citeproc_json/converter');
@@ -93,6 +99,8 @@ function mods_to_citeproc_json($cite_mods, $item_id) {
  *   This name to make the json available under.
  * @param stirng $meta_data_object
  *   The json to make available.
+ * @return stirng $meta_data_object
+ *   The metadata being added
  */
 function load_metadata_object_for_javascript($variable_name, $meta_data_object) {
   drupal_add_js( array(
@@ -102,6 +110,8 @@ function load_metadata_object_for_javascript($variable_name, $meta_data_object) 
       )
     )
   ), 'setting');
+  
+  return $meta_data_object;
 }
 
 /**
@@ -136,15 +146,18 @@ function load_bibliography_list_for_javascript($bibliography_list, $variable_nam
  *   http://gsl-nagoya-u.net/http/pub/citeproc-doc.html#selective-output
  * @param string $variable_name
  *   This name to make the json available under.
+ * @return $bibliography_selector
+ *   The data sent to javascript
  */
 function load_bibliography_selector($bibliography_selector, $variable_name) {
-    drupal_add_js( array(
+  drupal_add_js( array(
     'ir_citation' => array(
       'bibliography_selectors' => array(
         $variable_name => $bibliography_selector,
       )
     )
   ), 'setting');
+  return ($bibliography_selector);
 }
 
 /**
@@ -155,6 +168,8 @@ function load_bibliography_selector($bibliography_selector, $variable_name) {
  * @param stirng $json
  *   The json to make available.  The formatting can be found here: 
  *   http://gsl-nagoya-u.net/http/pub/citeproc-doc.html#citation-data-object
+ * @return $json
+ *   The data added to javascript
  */
 function load_citeproc_citation_object_for_javascript($json, $variable_name) {
   drupal_add_js( array(
@@ -164,6 +179,7 @@ function load_citeproc_citation_object_for_javascript($json, $variable_name) {
       )
     )
   ), 'setting');
+  return ($json);
 }
 
 /**
@@ -173,6 +189,8 @@ function load_citeproc_citation_object_for_javascript($json, $variable_name) {
  *   This name to make the CSL available under.
  * @param stirng $csl
  *   The xml CSL to make available.
+ * @return $csl
+ *   The data added to javascript
  */
 function load_csl_for_javascript($variable_name, $csl) {
   drupal_add_js( array(
@@ -182,6 +200,7 @@ function load_csl_for_javascript($variable_name, $csl) {
       )
     )
   ), 'setting');
+  return $csl;
 }
 
 /**
@@ -191,6 +210,8 @@ function load_csl_for_javascript($variable_name, $csl) {
  *   This name to make the locale available under.
  * @param stirng $locale
  *   The xml locale data to make available.
+ * @return $locale
+ *   The data added to javascript
  */
 function load_locale($lang, $locale) {
   drupal_add_js( array(
@@ -200,7 +221,7 @@ function load_locale($lang, $locale) {
       )
     )
   ), 'setting');
-  
+  return $locale;
 }
 
 /**
@@ -212,6 +233,8 @@ function load_locale($lang, $locale) {
  *   This type of abbreviation data. ie."institution"
  * @param stirng $abbreviation_data
  *   The abbreviation data to make available.
+ * @return $abbreviation_data
+ *   The data sent to JS
  */
 function load_abbreviation($name, $var_type, $abbreviation_data) {
   drupal_add_js( array(
@@ -223,6 +246,7 @@ function load_abbreviation($name, $var_type, $abbreviation_data) {
       )
     )
   ), 'setting');
+  return $abbreviation_data;
 }
 
 
