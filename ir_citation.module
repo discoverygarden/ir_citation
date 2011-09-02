@@ -38,8 +38,8 @@ function ir_citation_menu() {
 function ir_citation_cite() {
   //init
   module_load_include('inc', 'ir_citation', 'ir_citation');
-  test_api();
-  
+
+  $output.=test_api();
 
   ir_citation_run_demo_includes();
   load_citeproc_javascript();
@@ -90,8 +90,8 @@ function test_api() {
   //need to get api prefix
   $prefix= $test->getJavaScriptPrefix();
   $content='{
-          "id": ' .
-  $prefix . $alias . '
+          "id": "' .
+  $prefix . $alias . '",
           "title": "\u6c11\u6cd5",
   		"multi":{
   			"_keys":{
@@ -147,18 +147,19 @@ function test_api() {
   
   
   //get a bibliography
-  dsm($test->getCitationHTML($csl_alias, array('bibliography_list' => $bibliography_list_alias, 'citation' => NULL), 
-    array('bibliography_slector' => $bibliography_selector_alias,
+  $bib_span=$test->getCitationHTML($csl_alias, array('bibliography_list' => $bibliography_list_alias, 'citation' => NULL), 
+    array('bibliography_slector' => NULL,
       'abbreviations' => $abbreviation_alias
-      )));
-  /*
+      ));
+  $output=$bib_span;
+  
   //get a citation
-  dsm($test->getCitationHTML($csl_alias, array $biblist_or_citation_alias=array(
-    'bibliography_list' => NULL, 'citation' => NULL), array $optional_args=array(
+  $cite_span=$test->getCitationHTML($csl_alias, array('bibliography_list' => NULL, 'citation' => $citation_object_alias),array(
       'bibliography_slector' => NULL,
-      'abbreviations' => NULL
-      )));
-  */
+      'abbreviations' => $abbreviation_alias
+      ));
+  $output.=$cite_span;
+  return $output;
 }
 
 /**

@@ -198,7 +198,7 @@ class IslandoraCitationAPI {
     }
   }
 
-  //HELPFUL BUT NOT REQUIRED OPTIMAIZATION
+  //HELPFUL BUT NOT REQUIRED 
   /*
    * This function will get all the aliases if one or more exists
    * that is associated with the indicated content and/or type of data
@@ -238,6 +238,24 @@ class IslandoraCitationAPI {
       return FALSE;
     }
   }
+  
+  /**
+   * This is a SUPER convienence function!!!
+   * It saves a minimum of 3 lines of code for the user and a whole lot of thinking.
+   * It will return the html span from the csl and a list of pids.
+   * @param string $csl
+   *   The csl sheet to use to create the citaton
+   * @param array $pids
+   *   The pids to create the citaion (1) or bibliography from.
+   */
+  public function getCitationHTMLFromPIDAndCSL($csl, array $pids) {
+    $csl_alias='';
+    $metadata_alias='';
+    $citation_alias='';
+    $bibliography_alias='';
+    addMetaData($metadata_alias, $pid, $source_type='pid');
+  }
+  
   
   /**
    * This function will give the user an html string that they can insert
@@ -384,7 +402,7 @@ class IslandoraCitationAPI {
           {
   			"id":"' . $this->prefixAlias($meta_data_alias) . '"
   		}
-  	]}';
+  	], "properties": { "noteIndex": 1 }}';
   }
   
   /**
