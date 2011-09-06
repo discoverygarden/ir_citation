@@ -279,7 +279,7 @@ class IslandoraCitationAPI {
       $citation_alias=IslandoraCitationAPI::getNewAlias('citation_auto');
       
       $this->addMetaData($metadata_alias, $pids[0], $source_type='pid');
-      loadBasicCitationObject($metadata_alias, $citation_alias);
+      $this->loadBasicCitationObject($metadata_alias, $citation_alias);
       
       return($this->getCitationHTML($csl_alias, array('citation' => $citation_alias))); 
     }
