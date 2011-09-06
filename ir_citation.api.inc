@@ -38,8 +38,9 @@ class IslandoraCitationAPI {
    * These static varaibles are used to make sure that different instances of this
    * class don't step on each others feet.
    */
-  static protected $citationProcessorEnabled=FALSE;
-  static protected $classCount=0;
+  static protected $citationProcessorEnabled=FALSE;//only add the citation javascript once
+  static protected $classCount=0;//used to determine the prefix on aliases
+  static protected $autoAliasCount=0;//used when an alias is not provided by the user
   
   /*prefixes all javascirpt variables in the form
      $uniquePrefix_var_name to prevent collisions.
@@ -247,13 +248,45 @@ class IslandoraCitationAPI {
    *   The csl sheet to use to create the citaton
    * @param array $pids
    *   The pids to create the citaion (1) or bibliography from.
+   * @return mixed
+   *   FALSE if there was an error, or the html that can be transformed into a citation/bibliography
    */
   public function getCitationHTMLFromPIDAndCSL($csl, array $pids) {
-    $csl_alias='';
-    $metadata_alias='';
-    $citation_alias='';
-    $bibliography_alias='';
-    addMetaData($metadata_alias, $pid, $source_type='pid');
+    //add csl
+    $csl_alias=IslandoraCitationAPI::getNewAlias('CSL_auto');
+    $type='csl';
+    addData($type, $csl_alias, $csl);
+    
+    //if a bibliography
+    if (count($pids)>1) {
+      //loop through pids
+      foreach ($pids as $pid_key => $pid) {
+        $metadata_alias=IslandoraCitationAPI::getNewAlias('metadata_auto');
+        $content[]=$metadata_alias;
+        addMetaData($metadata_alias, $pid, $source_type='pid');
+      }
+      //add the bibliography
+      $bibliography_alias=IslandoraCitationAPI::getNewAlias('bibliography_auto');
+      $type='bibliography_list';
+      addData($type, $bibliography_alias, $content);
+      
+      return(getCitationHTML($csl_alias, array('bibliography_list' => $bibliography_alias)));
+    }
+    
+    //if a citation
+    elseif (count($pids)==1) {
+      $metadata_alias=IslandoraCitationAPI::getNewAlias('metadata_auto');
+      $citation_alias=IslandoraCitationAPI::getNewAlias('citation_auto');
+      
+      addMetaData($metadata_alias, $pids[0], $source_type='pid');
+      loadBasicCitationObject($metadata_alias, $citation_alias);
+      
+      return(getCitationHTML($csl_alias, array('citation' => $citation_alias))); 
+    }
+    
+    else {
+      return FALSE;
+    }
   }
   
   
@@ -333,21 +366,7 @@ class IslandoraCitationAPI {
   /*
    *PRIVATE HELPER FUNCTIONS 
    */
-  
-  /**
-  * This function will return a unique identifieer for the object (unique or this page)
-  * the identifier is used to avoid name collisions in javascript space.
-  *
-  * @return int $uid
-  *   This $uid is used to prefix all javascirpt variables in the form
-  *   $uid_varName to prevent collisions.
-  */
-  private static function getNewUID() {
-    $uid=IslandoraCitationAPI::$classCount;
-    IslandoraCitationAPI::$classCount = $uid+1;
-    return $uid;
-  }
-  
+
   /**
   *This function calls $this->addMetaDataFromMODS which calls
    *$this->addData on the final metadata object
@@ -558,6 +577,41 @@ class IslandoraCitationAPI {
     return $pointer;
   }
   
+  /**
+   * This function is used to create aliases when none is given by the user
+   * @param string $meaningfulName
+   *   The type of data that is an alias is being created for (so that the aliases can have some meaning)
+   * @return int $autoAlias
+   *   The string of the alias to be used
+   */
+  private function getNewAlias($meaningfulName) {
+    $autoAlias=IslandoraCitationAPI::$autoAliasCount;
+    IslandoraCitationAPI::$autoAliasCount = $autoAlias+1;
+    
+    //recursion might not be the best way to handle the possiblity of collision
+    $autoAlias.=$meaningfulName;
+    if (!($this->isAliasUsed($autoAlias))) {
+      return $autoAlias;
+    }
+    else {
+      return (IslandoraCitationAPI::getNewAlias($autoAlias));
+    }
+  }
+  
+  /**
+  * This function will return a unique identifieer for the object (unique or this page)
+   * the identifier is used to avoid name collisions in javascript space.
+  *
+  * @return int $uid
+  *   This $uid is used to prefix all javascirpt variables in the form
+  *   $uid_varName to prevent collisions.
+  */
+  private static function getNewUID() {
+  $uid=IslandoraCitationAPI::$classCount;
+  IslandoraCitationAPI::$classCount = $uid+1;
+  return $uid;
+  }
+    
   /**
   * This will return the UID being used for this object
    *
