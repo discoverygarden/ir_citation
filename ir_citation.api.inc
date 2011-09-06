@@ -351,6 +351,7 @@ class IslandoraCitationAPI {
    * This funciton will send the necessary custom javascript files along with the javascript citation processor.
    * This function is intended to make sure that the citeprocessor javascript is only added 
    * to the page once.
+   * This represents one of the incompaitibilites with the functional API
    * @return boolean
    *   FALSE if the javascript is not added because it already was for this page.
    *   TRUE if the javascript is added.
@@ -371,12 +372,15 @@ class IslandoraCitationAPI {
   }
   
   /**
-   *Due to the nature of CSLs they include an alias to the localization string.
-   *They MUST be included and MUST have a certain alias.
-   *This function will make sure it is only added once {crash if it gets added twice}
-   *This represents one of the incompaitibilites with the functional API
-   *So we can't use the same tactics we are using for the other datastructures
-   *@return boolean
+   * Due to the nature of CSLs they include an alias to the localization string.
+   * They MUST be included and MUST have a certain alias.
+   * This function will make sure the english localization
+   * is only added once {crashes if it gets added twice}
+   * So we can't use the same tactics we are using for the other datastructures
+   * This represents one of the incompaitibilites with the functional API
+   * @todo
+   *   refactor once data duplication strategy and handling of localization strings is in place
+   * @return boolean
    *   FALSE if the data is not added because it already was for this page.
    *   TRUE if the data is added.
    *   Both return values indicate success
