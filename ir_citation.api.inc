@@ -255,7 +255,7 @@ class IslandoraCitationAPI {
     //add csl
     $csl_alias=IslandoraCitationAPI::getNewAlias('CSL_auto');
     $type='csl';
-    addData($type, $csl_alias, $csl);
+    $this->addData($type, $csl_alias, $csl);
     
     //if a bibliography
     if (count($pids)>1) {
@@ -263,14 +263,14 @@ class IslandoraCitationAPI {
       foreach ($pids as $pid_key => $pid) {
         $metadata_alias=IslandoraCitationAPI::getNewAlias('metadata_auto');
         $content[]=$metadata_alias;
-        addMetaData($metadata_alias, $pid, $source_type='pid');
+        $this->addMetaData($metadata_alias, $pid, $source_type='pid');
       }
       //add the bibliography
       $bibliography_alias=IslandoraCitationAPI::getNewAlias('bibliography_auto');
       $type='bibliography_list';
-      addData($type, $bibliography_alias, $content);
+      $this->addData($type, $bibliography_alias, $content);
       
-      return(getCitationHTML($csl_alias, array('bibliography_list' => $bibliography_alias)));
+      return($this->getCitationHTML($csl_alias, array('bibliography_list' => $bibliography_alias)));
     }
     
     //if a citation
@@ -278,10 +278,10 @@ class IslandoraCitationAPI {
       $metadata_alias=IslandoraCitationAPI::getNewAlias('metadata_auto');
       $citation_alias=IslandoraCitationAPI::getNewAlias('citation_auto');
       
-      addMetaData($metadata_alias, $pids[0], $source_type='pid');
+      $this->addMetaData($metadata_alias, $pids[0], $source_type='pid');
       loadBasicCitationObject($metadata_alias, $citation_alias);
       
-      return(getCitationHTML($csl_alias, array('citation' => $citation_alias))); 
+      return($this->getCitationHTML($csl_alias, array('citation' => $citation_alias))); 
     }
     
     else {
