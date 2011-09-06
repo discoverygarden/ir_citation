@@ -172,6 +172,7 @@ function test_api() {
       ));
   $output.=$cite_span;
   
+  $test->addENUS();
   $test->loadCiteprocJavascript();
   
   return $output;
