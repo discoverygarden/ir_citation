@@ -49,9 +49,9 @@ class IslandoraCitationAPI {
      */
   protected $uniquePrefix='';
   
-  /*These two arrays are used to map aliases to their content using an internal pointer
+  /* These two arrays are used to map aliases to their content using an internal pointer
    * IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()][]=$alias
-   * $contentPointer[$pointer]=content
+   * $contentPointer[$type][$pointer]=content
    */
   static protected $aliasPointer=array();
   static protected $contentPointer=array();
@@ -147,7 +147,7 @@ class IslandoraCitationAPI {
     }
     else {
       IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()][]=$alias;
-      IslandoraCitationAPI::$contentPointer[$pointer]=$content;
+      IslandoraCitationAPI::$contentPointer[$type][$pointer]=$content;
     }
     
     //LOG ALIAS AND CONTENT
@@ -211,30 +211,80 @@ class IslandoraCitationAPI {
     }
   }
 
-  //HELPFUL BUT NOT REQUIRED 
-  /*
+  /**
    * This function will get all the aliases if one or more exists
    * that is associated with the indicated content and/or type of data
+   * THIS FUNCTION DOES NOT WORK WITH LOCALS YET
    * @param array $content_and_type
-   * @todo
-   *   abandoned the type thing so refactor to just give back the whole list if no content sent
-   *
-  public function getAliasList($content= NULL) {
+   *   An array with two possible elements
+   *   'content' the content to find all aliases of 
+   *   'type' means to return all aliases for all types
+   *   if both are given then only the content of the corresponding type will be searched
+   *   if niether is set it will return all aliases
+   * @return array $aliases
+   *   empty if nothing found
+   *   or matched aliases
+   *   
+   *   
+   *   
+   * IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()][]=$alias
+   * IslandoraCitationAPI::$contentPointer[$type][$pointer]=content
+   */
+  public function getAliasList(array $content_and_type=array('content'=>NULL,'type'=>NULL)) {
+    $aliases=array();
     
+    //both content and type restricted
     if (isset($content_and_type['content']) && isset($content_and_type['type'])) {
-      
+      if ($content_and_type['type']!='locale') {
+        //iterate through all content for type
+        foreach(IslandoraCitationAPI::$contentPointer[$content_and_type['type']] as $pointer => $content) {
+          if ($content==$content_and_type['content']) {
+            $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
+          }
+        }
+      }
+      else {
+        return FALSE;
+      }
     }
+    
+    //only content set
     elseif (isset($content_and_type['content'])) {
-    
+      //iterate through all
+      foreach(IslandoraCitationAPI::$contentPointer as $type => $pointers_and_content) {
+        foreach($pointers_and_content as $pointer => $content) {
+          if ($content==$content_and_type['content']) {
+            $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
+          }
+        }
+      }
     }
+    
+    //only type set
     elseif (isset($content_and_type['type'])) {
+      if ($content_and_type['type']!='locale') {
+        //iterate through all content for type
+        foreach(IslandoraCitationAPI::$contentPointer[$content_and_type['type']] as $pointer => $content) {
+          $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
+        }
+      }
+      else {
+        return FALSE;
+      }
+    }
     
-    }
+    //no restrictions
     else {
-      return FALSE;
+      //iterate through all 
+      foreach(IslandoraCitationAPI::$contentPointer as $type => $pointers_and_content) {
+        foreach($pointers_and_content as $pointer => $content) {
+          $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
+        }
+      }
     }
+    return $aliases;
   }
-  */
+  
   /**
    * This function will return the content associated with the alias
    * This is not to be used with localization strings.
@@ -247,7 +297,11 @@ class IslandoraCitationAPI {
   public function getContent($alias) {
     if ($this->isAliasUsed($alias)) {
       $pointer=$this->getAliasPointer($alias);
-      return IslandoraCitationAPI::$contentPointer[$pointer];
+      foreach (IslandoraCitationAPI::$contentPointer as $type => $pointer_and_content) {
+        if (array_key_exists($pointer, $pointer_and_content)) {
+          return IslandoraCitationAPI::$contentPointer[$type][$pointer];
+        }
+      }
     }
     else {
       return FALSE;
@@ -298,7 +352,7 @@ class IslandoraCitationAPI {
    *   FALSE if none set yet
    *   or an array of [$alias][$localization_string]
    */
-  public function getLocals() {
+  public function getLocales() {
     if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
       return IslandoraCitationAPI::$localizations[$this->getUID()];
     }
@@ -352,7 +406,6 @@ class IslandoraCitationAPI {
       return FALSE;
     }
   }
-  
   
   /**
    * This function will give the user an html string that they can insert
@@ -724,7 +777,7 @@ class IslandoraCitationAPI {
     
   /**
   * This will return the UID being used for this object
-   *
+  *
   * @return int $uid
   *   This $uid is used to prefix all javascirpt variables in the form
   *   $uid_var_name to prevent collisions.
