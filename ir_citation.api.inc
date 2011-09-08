@@ -735,8 +735,8 @@ class IslandoraCitationAPI {
    *   The pointer for linking alias and content
    */
   private function getNewPointer() {
-    $pointer = $this->pointerCount;
-    $this->pointerCount = $pointer + 1;
+    $pointer = self::$pointerCount;
+    self::$pointerCount = $pointer + 1;
     return $pointer;
   }
 
