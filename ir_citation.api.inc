@@ -247,7 +247,7 @@ class IslandoraCitationAPI {
       else {//localization
         if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
           foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $language => $localization_string) {
-            if ($locale==$localization_string) {
+            if ($localization_string==$localization_string) {
               $aliases[]=$language;
             }
           }
@@ -300,6 +300,12 @@ class IslandoraCitationAPI {
           $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
         }
       }
+      //localization
+      if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {        
+        foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $language => $localization_string) {
+          $aliases[]=$language;
+        }
+      }
     }
     return $aliases;
   }
@@ -332,58 +338,6 @@ class IslandoraCitationAPI {
     }
   }
   
-  /**
-   * This function will get the localization string that has been set by the object 
-   * with the current alias if there was one set.
-   * @param string $alias
-   *   The alias to return the localization string of ie. 'en-US'
-   * @return mixed
-   *   The localization string or FALSE if there has not been one added by this object.
-   * @todo
-   *   refactor to remove
-   */
-  public function getLocalizationString($alias) {
-    if (isset(IslandoraCitationAPI::$localizations[$this->getUID()][$alias])) {
-      return IslandoraCitationAPI::$localizations[$this->getUID()][$alias];
-    }
-    else {
-      return FALSE;
-    }
-  }
-  
-  /*
-   * This function will return the alias to a localization string if it has 
-   * been added by the current opject
-   * @param string $local
-   *   The localization string to find the alias of
-   * @return mixed
-   *   The alias found or FALSE if none found
-   *
-  public function getLocalizationAlias($locale) {
-    if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
-      foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $language => $localization_string) {
-        if ($locale==$localization_string) {
-          return $language;
-        }
-      }
-    }
-    else {
-      return FALSE;
-    }
-  }
-  
-  /*
-   * This function will return all localizations set by this object
-   * @return mixed
-   *   FALSE if none set yet
-   *   or an array of [$alias][$localization_string]
-   *
-  public function getLocales() {
-    if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
-      return IslandoraCitationAPI::$localizations[$this->getUID()];
-    }
-  }
-  */
   /**
    * This is a SUPER convienence function!!!
    * It saves a minimum of 3 lines of code for the user and a whole lot of thinking.
@@ -751,7 +705,7 @@ class IslandoraCitationAPI {
   */
   private function getAliasPointer($alias) {
     foreach (IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
-      foreach ($uids as $uid=> $alias_list) {
+      foreach ($uids as $uid => $alias_list) {
         if ($uid==$this->getUID()) {
           if (in_array($alias, $alias_list)) {
             return $pointer;
