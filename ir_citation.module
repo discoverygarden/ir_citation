@@ -23,7 +23,7 @@ function ir_citation_menu() {
     'title' => 'citation demo',
     'description' => 'citation demo',
     'page callback' => 'ir_citation_cite',
-    'access arguments' => array(),
+    'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM
   );
   return $menu_entries;
