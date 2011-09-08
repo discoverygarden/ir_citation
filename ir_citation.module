@@ -39,7 +39,7 @@ function ir_citation_cite() {
   //init
   module_load_include('inc', 'ir_citation', 'ir_citation');
 
-  $output.=test_api();
+  $output = test_api();
 
   ir_citation_run_demo_includes();
   //removed due to conflict with oo api
