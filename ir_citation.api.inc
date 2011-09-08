@@ -30,8 +30,7 @@
  *   William Panting
  *   
  * @todo
- *   implement getAliasList
- *   using static alias and content arrays may make it so that we can avoid all data duplication
+ *   look at wrapping the local stuff with getAliasList and getContent
  */
 class IslandoraCitationAPI {
   /*
@@ -135,11 +134,13 @@ class IslandoraCitationAPI {
       return FALSE;
     }
     //if the content already esists, don't add it again, just create a new alias
-    /*if ($this->isContentDuplicated($content)) {
+    $content_duplication=IslandoraCitationAPI::isContentDuplicated($content, $type);
+    if ($content_duplication!==FALSE) {
+      //dsm($content_duplication);
       //get the pointer for the alias
-      $pointer=;
-      IslandoraCitationAPI::$aliasPointer[$alias]=$pointer
-    }*/
+      //$pointer=;
+      //IslandoraCitationAPI::$aliasPointer[$alias]=$pointer
+    }
     //otherwiase create a new pointer and log both the alias and the content
     $pointer=$this->getNewPointer();
     if ($type=='locale') {
@@ -199,7 +200,7 @@ class IslandoraCitationAPI {
    *  The data added to JavaScript, or FALSE if $source_type is invalid
    */
   public function addMetaData($alias, $source, $source_type=NULL) {
-    switch ($source_type){
+    switch ($source_type) {
       case 'pid':
         return ($this->addMetaDataFromPID($alias, $source));
         break;
@@ -230,31 +231,45 @@ class IslandoraCitationAPI {
    * IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()][]=$alias
    * IslandoraCitationAPI::$contentPointer[$type][$pointer]=content
    */
-  public function getAliasList(array $content_and_type=array('content'=>NULL,'type'=>NULL)) {
+  public function getAliasList(array $content_and_type=array('content' => NULL, 'type' => NULL)) {
     $aliases=array();
     
     //both content and type restricted
     if (isset($content_and_type['content']) && isset($content_and_type['type'])) {
       if ($content_and_type['type']!='locale') {
         //iterate through all content for type
-        foreach(IslandoraCitationAPI::$contentPointer[$content_and_type['type']] as $pointer => $content) {
+        foreach (IslandoraCitationAPI::$contentPointer[$content_and_type['type']] as $pointer => $content) {
           if ($content==$content_and_type['content']) {
             $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
           }
         }
       }
-      else {
-        return FALSE;
+      else {//localization
+        if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
+          foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $language => $localization_string) {
+            if ($locale==$localization_string) {
+              $aliases[]=$language;
+            }
+          }
+        }
       }
     }
     
     //only content set
     elseif (isset($content_and_type['content'])) {
       //iterate through all
-      foreach(IslandoraCitationAPI::$contentPointer as $type => $pointers_and_content) {
-        foreach($pointers_and_content as $pointer => $content) {
+      foreach (IslandoraCitationAPI::$contentPointer as $type => $pointers_and_content) {
+        foreach ($pointers_and_content as $pointer => $content) {
           if ($content==$content_and_type['content']) {
             $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
+          }
+        }
+      }
+      //localizations
+      if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
+        foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $language => $localization_string) {
+          if ($localization_string==$content_and_type['content']) {
+            $aliases[]=$language;
           }
         }
       }
@@ -264,20 +279,24 @@ class IslandoraCitationAPI {
     elseif (isset($content_and_type['type'])) {
       if ($content_and_type['type']!='locale') {
         //iterate through all content for type
-        foreach(IslandoraCitationAPI::$contentPointer[$content_and_type['type']] as $pointer => $content) {
+        foreach (IslandoraCitationAPI::$contentPointer[$content_and_type['type']] as $pointer => $content) {
           $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
         }
       }
-      else {
-        return FALSE;
+      else {//localization
+        if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
+          foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $language => $localization_string) {
+            $aliases[]=$language;
+          }
+        }
       }
     }
     
     //no restrictions
     else {
       //iterate through all 
-      foreach(IslandoraCitationAPI::$contentPointer as $type => $pointers_and_content) {
-        foreach($pointers_and_content as $pointer => $content) {
+      foreach (IslandoraCitationAPI::$contentPointer as $type => $pointers_and_content) {
+        foreach ($pointers_and_content as $pointer => $content) {
           $aliases=array_merge($aliases, IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()]);
         }
       }
@@ -296,6 +315,11 @@ class IslandoraCitationAPI {
    */
   public function getContent($alias) {
     if ($this->isAliasUsed($alias)) {
+      //localization
+      if (isset(IslandoraCitationAPI::$localizations[$this->getUID()][$alias])) {
+        return IslandoraCitationAPI::$localizations[$this->getUID()][$alias];
+      }
+      //other data structures
       $pointer=$this->getAliasPointer($alias);
       foreach (IslandoraCitationAPI::$contentPointer as $type => $pointer_and_content) {
         if (array_key_exists($pointer, $pointer_and_content)) {
@@ -315,6 +339,8 @@ class IslandoraCitationAPI {
    *   The alias to return the localization string of ie. 'en-US'
    * @return mixed
    *   The localization string or FALSE if there has not been one added by this object.
+   * @todo
+   *   refactor to remove
    */
   public function getLocalizationString($alias) {
     if (isset(IslandoraCitationAPI::$localizations[$this->getUID()][$alias])) {
@@ -325,19 +351,19 @@ class IslandoraCitationAPI {
     }
   }
   
-  /**
+  /*
    * This function will return the alias to a localization string if it has 
    * been added by the current opject
    * @param string $local
    *   The localization string to find the alias of
    * @return mixed
    *   The alias found or FALSE if none found
-   */
+   *
   public function getLocalizationAlias($locale) {
     if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
-      foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $alias => $localization_string) {
+      foreach (IslandoraCitationAPI::$localizations[$this->getUID()] as $language => $localization_string) {
         if ($locale==$localization_string) {
-          return $alias;
+          return $language;
         }
       }
     }
@@ -346,22 +372,23 @@ class IslandoraCitationAPI {
     }
   }
   
-  /**
+  /*
    * This function will return all localizations set by this object
    * @return mixed
    *   FALSE if none set yet
    *   or an array of [$alias][$localization_string]
-   */
+   *
   public function getLocales() {
     if (isset(IslandoraCitationAPI::$localizations[$this->getUID()])) {
       return IslandoraCitationAPI::$localizations[$this->getUID()];
     }
   }
-  
+  */
   /**
    * This is a SUPER convienence function!!!
    * It saves a minimum of 3 lines of code for the user and a whole lot of thinking.
-   * It will return the html span from the csl and a list of pids.
+   * It will return the html span [that will be parsed into a citation or bibliography]
+   * from the csl and a list of pids.
    * @param string $csl
    *   The csl sheet to use to create the citaton
    * @param array $pids
@@ -388,7 +415,7 @@ class IslandoraCitationAPI {
       $type='bibliography_list';
       $this->addData($type, $bibliography_alias, $content);
       
-      return($this->getCitationHTML($csl_alias, array('bibliography_list' => $bibliography_alias)));
+      return ($this->getCitationHTML($csl_alias, array('bibliography_list' => $bibliography_alias)));
     }
     
     //if a citation
@@ -399,7 +426,7 @@ class IslandoraCitationAPI {
       $this->addMetaData($metadata_alias, $pids[0], $source_type='pid');
       $this->loadBasicCitationObject($metadata_alias, $citation_alias);
       
-      return($this->getCitationHTML($csl_alias, array('citation' => $citation_alias))); 
+      return ($this->getCitationHTML($csl_alias, array('citation' => $citation_alias))); 
     }
     
     else {
@@ -675,6 +702,7 @@ class IslandoraCitationAPI {
   /**
    * This function will take in the local alias and return the 
    * name that will be used JavaScript side
+   * Do not use with localization strings
    * @param string $alias
    *   The name users of this api will need php side
    * @return string $javascript_variable_name
@@ -692,10 +720,12 @@ class IslandoraCitationAPI {
    * @return boolean
    *  TRUE if the alias already exists
    *  FALSE if the alias has not been assigned
+   *  @todo 
+   *    include localization strings
    */
-  private function isAliasUsed($alias) {
-    foreach(IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
-      foreach($uids as $uid=> $alias_list) {
+  private function isAliasUsed($alias) {    
+    foreach (IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
+      foreach ($uids as $uid => $alias_list) {
         if ($uid==$this->getUID()) {
           if (in_array($alias, $alias_list)) {
             return TRUE;
@@ -703,11 +733,16 @@ class IslandoraCitationAPI {
         }
       }
     }
+    
+    if (isset(IslandoraCitationAPI::$localizations[$this->getUID()][$alias])) {
+      return TRUE;
+    }
     return FALSE;
   }
   
   /**
   * This function is used to get the pointer associated with an alias
+  * Does not work with localization strings they don't have pointers
   * @param string $alias
   *   The alias to check for
   * @return boolean
@@ -715,8 +750,8 @@ class IslandoraCitationAPI {
   *  FALSE if the alias has not been assigned
   */
   private function getAliasPointer($alias) {
-    foreach(IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
-      foreach($uids as $uid=> $alias_list) {
+    foreach (IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
+      foreach ($uids as $uid=> $alias_list) {
         if ($uid==$this->getUID()) {
           if (in_array($alias, $alias_list)) {
             return $pointer;
@@ -752,7 +787,7 @@ class IslandoraCitationAPI {
     IslandoraCitationAPI::$autoAliasCount = $autoAlias+1;
     
     //recursion might not be the best way to handle the possiblity of collision
-    $autoAlias.=$meaningfulName;
+    $autoAlias .=$meaningfulName;
     if (!($this->isAliasUsed($autoAlias))) {
       return $autoAlias;
     }
@@ -763,16 +798,16 @@ class IslandoraCitationAPI {
   
   /**
   * This function will return a unique identifieer for the object (unique or this page)
-   * the identifier is used to avoid name collisions in javascript space.
+  * the identifier is used to avoid name collisions in javascript space.
   *
   * @return int $uid
   *   This $uid is used to prefix all javascirpt variables in the form
   *   $uid_varName to prevent collisions.
   */
   private static function getNewUID() {
-  $uid=IslandoraCitationAPI::$classCount;
-  IslandoraCitationAPI::$classCount = $uid+1;
-  return $uid;
+    $uid=IslandoraCitationAPI::$classCount;
+    IslandoraCitationAPI::$classCount = $uid+1;
+    return $uid;
   }
     
   /**
@@ -783,16 +818,42 @@ class IslandoraCitationAPI {
   *   $uid_var_name to prevent collisions.
   */
   private function getUID() {
-  return $this->uniquePrefix;
+    return $this->uniquePrefix;
   }
 
-  /*
-   * This is a function that prevents the adding of content that is a duplicate of content already
-    * added.  It prevents
-  * @todo: this may be a premature optimization, implement last if there is time
-  * @param unknown_type $content
-  *
-   private function isContentDuplicated ($content) {
-  
-  }*/
+  /**
+   * This is a function that is used in the prevention of content duplication
+   * @param unknown_type $content
+   *   iether an array or a string representing the data to judge for uniqueness
+   * @param string $type
+   *   The type of data we are judging for duplication
+   * @return mixed
+   *   FALSE if content does not already exist
+   *   if $type was 'locale' and content was duplicated it returns the corresponding $alias
+   *   otherwise if content was duplicated it returns the corresponding $pointer
+   *   Be aware that locical false and the int zero are both possible returns so don't
+   *   go if(isContentDuplicated == FALSE) USE INSTEAD: if(isContentDuplicated === FALSE)
+   * 
+   */
+  private static function isContentDuplicated($content_in, $type) {
+    if ($type=='locale') {
+      foreach (IslandoraCitationAPI::$localizations as $uid => $alias_to_localization) {
+        foreach ($alias_to_localization as $alias => $localization) {
+          if ($localization==$content_in) {
+            return $alias;//STRING
+          }
+        }
+      }
+    }
+    else {
+      if (isset(IslandoraCitationAPI::$contentPointer[$type])) {
+        foreach (IslandoraCitationAPI::$contentPointer[$type] as $pointer => $present_content) {
+          if ($present_content==$content_in) {
+            return $pointer;//INT
+          }
+        }
+      }
+    }
+    return FALSE;//BOOL
+  }
 }
