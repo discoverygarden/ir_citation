@@ -17,7 +17,7 @@
  */
 function ir_citation_menu() {
   $menu_entries= array();
-
+  
   //demo page
   $menu_entries['citation demo']=array(
     'title' => 'citation demo',

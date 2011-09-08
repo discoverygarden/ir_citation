@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  *   This file supplies helper functions and utilities to the ir_citation module.
@@ -15,13 +16,13 @@ function load_citeproc_javascript() {
   //jquery library loads
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/jQuery/jquery-1.6.2.min.js');
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/jQuery/re_alias_jQuery.js');
-  
+
   //citeproc library loads
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/xmle4x.js');
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/xmldom.js');
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/citeproc-js/citeproc.js');
-  
-  /*module specific javascript for making drupal api work with the citeproc javascript*/
+
+  /* module specific javascript for making drupal api work with the citeproc javascript */
   //creates a 'sys' object that gives the citeproc engine access to the variables set by drupal
   drupal_add_js(drupal_get_path('module', 'ir_citation') . '/ir_citation_sys.js');
   //currently being used to launch demo/test
@@ -42,21 +43,21 @@ function load_citeproc_javascript() {
  *   The metadata that was sent to JS, or false if something went wrong
  */
 function load_meta_data_from_fedora_pid($fedora_pid, $variable_name=NULL) {
-  if ($variable_name==NULL) {//allows to do this with only setting $fedora_pid
-    $variable_name=$fedora_pid;
+  if ($variable_name == NULL) {//allows to do this with only setting $fedora_pid
+    $variable_name = $fedora_pid;
   }
-  
+
   //get the mods from fedora
-  $cite_mods=get_mods_from_pid($fedora_pid);
+  $cite_mods = get_mods_from_pid($fedora_pid);
   if (!cite_mods) {
     return FALSE;
   }
-  
+
   //load json
   return (load_citeproc_json_from_mods($variable_name, $cite_mods));
 }
 
-/** 
+/**
  * This is a convienence function that simply wraps mods_to_citeproc_json
  * and load_metadata_object_for_javascript
  * @param string $variable_name
@@ -69,7 +70,7 @@ function load_meta_data_from_fedora_pid($fedora_pid, $variable_name=NULL) {
  */
 function load_citeproc_json_from_mods($variable_name, $cite_mods) {
   //get json
-  $citeproc_json=mods_to_citeproc_json($cite_mods, $variable_name);
+  $citeproc_json = mods_to_citeproc_json($cite_mods, $variable_name);
   //load json in javascript
   return (load_metadata_object_for_javascript($variable_name, $citeproc_json));
 }
@@ -103,14 +104,14 @@ function mods_to_citeproc_json($cite_mods, $item_id) {
  *   The metadata being added
  */
 function load_metadata_object_for_javascript($variable_name, $meta_data_object) {
-  drupal_add_js( array(
+  drupal_add_js(array(
     'ir_citation' => array(
       'meta_data_objects' => array(
         $variable_name => $meta_data_object,
       )
     )
-  ), 'setting');
-  
+      ), 'setting');
+
   return $meta_data_object;
 }
 
@@ -125,17 +126,17 @@ function load_metadata_object_for_javascript($variable_name, $meta_data_object) 
  *   This is the json that will actualy get added javascript side
  */
 function load_bibliography_list_for_javascript($bibliography_list, $variable_name) {
-  
-  $bibliography_json=json_encode($bibliography_list);
-  
-  drupal_add_js( array(
+
+  $bibliography_json = json_encode($bibliography_list);
+
+  drupal_add_js(array(
     'ir_citation' => array(
       'bibliography_lists' => array(
         $variable_name => $bibliography_json,
       )
     )
-  ), 'setting');
-  
+      ), 'setting');
+
   return $bibliography_json;
 }
 
@@ -150,13 +151,13 @@ function load_bibliography_list_for_javascript($bibliography_list, $variable_nam
  *   The data sent to javascript
  */
 function load_bibliography_selector($bibliography_selector, $variable_name) {
-  drupal_add_js( array(
+  drupal_add_js(array(
     'ir_citation' => array(
       'bibliography_selectors' => array(
         $variable_name => $bibliography_selector,
       )
     )
-  ), 'setting');
+      ), 'setting');
   return ($bibliography_selector);
 }
 
@@ -172,13 +173,13 @@ function load_bibliography_selector($bibliography_selector, $variable_name) {
  *   The data added to javascript
  */
 function load_citeproc_citation_object_for_javascript($json, $variable_name) {
-  drupal_add_js( array(
+  drupal_add_js(array(
     'ir_citation' => array(
       'citation_objects' => array(
         $variable_name => $json,
       )
     )
-  ), 'setting');
+      ), 'setting');
   return ($json);
 }
 
@@ -193,13 +194,13 @@ function load_citeproc_citation_object_for_javascript($json, $variable_name) {
  *   The data added to javascript
  */
 function load_csl_for_javascript($variable_name, $csl) {
-  drupal_add_js( array(
+  drupal_add_js(array(
     'ir_citation' => array(
       'csl' => array(
         $variable_name => $csl,
       )
     )
-  ), 'setting');
+      ), 'setting');
   return $csl;
 }
 
@@ -214,13 +215,13 @@ function load_csl_for_javascript($variable_name, $csl) {
  *   The data added to javascript
  */
 function load_locale($lang, $locale) {
-  drupal_add_js( array(
+  drupal_add_js(array(
     'ir_citation' => array(
       'locale' => array(
         $lang => $locale,
       )
     )
-  ), 'setting');
+      ), 'setting');
   return $locale;
 }
 
@@ -237,7 +238,7 @@ function load_locale($lang, $locale) {
  *   The data sent to JS
  */
 function load_abbreviation($name, $var_type, $abbreviation_data) {
-  drupal_add_js( array(
+  drupal_add_js(array(
     'ir_citation' => array(
       'abbreviations' => array(
         $name => array(
@@ -245,10 +246,9 @@ function load_abbreviation($name, $var_type, $abbreviation_data) {
         )
       )
     )
-  ), 'setting');
+      ), 'setting');
   return $abbreviation_data;
 }
-
 
 /**
  * This will get the mods datastream from the indicated fedora pid
@@ -258,17 +258,11 @@ function load_abbreviation($name, $var_type, $abbreviation_data) {
  *   The string of the mods datastream from the indicate pid. Or false if there is none
  */
 function get_mods_from_pid($pid) {
-  module_load_include('object.inc', 'islandora_fedora_api'); //for getting an object
-  $object= new FedoraObject($pid);
-  global $user;
-  $object_datastreams=$object->get_datastreams();
-  if (!isset($object_datastreams['MODS'])) {
+  module_load_include('inc', 'fedora_repository', 'api/fedora_item'); //for getting an object
+  $item = new Fedora_Item($pid);
+  if (empty($item->datastreams['MODS'])) {
     return FALSE;
   }
-  
-  //get the DS xml
-  $mods_datastream=$object_datastreams['MODS'];
-  $cite_mods=$mods_datastream->__get('content');
-  
-  return $cite_mods;
+  $content = $item->get_datastream_dissemination('MODS');
+  return $content;
 }
