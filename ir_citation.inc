@@ -258,6 +258,20 @@ function load_abbreviation($name, $var_type, $abbreviation_data) {
  *   The string of the mods datastream from the indicate pid. Or false if there is none
  */
 function get_mods_from_pid($pid) {
+  /*
+   * switch back to this code when the class FedoraObject is renamed in core
+  module_load_include('object.inc', 'islandora_fedora_api'); //for getting an object
+  $object= new FedoraObject($pid);
+  $object_datastreams=$object->get_datastreams();
+  if (!isset($object_datastreams['MODS'])) {
+    return FALSE;
+  }
+  
+  //get the DS xml
+  $mods_datastream=$object_datastreams['MODS'];
+  $cite_mods=$mods_datastream->__get('content');
+  
+   */
   module_load_include('inc', 'fedora_repository', 'api/fedora_item'); //for getting an object
   $item = new Fedora_Item($pid);
   if (empty($item->datastreams['MODS'])) {
