@@ -90,6 +90,8 @@ class IslandoraCitationAPI {
    *   This needs to match one of the names of a meta data json objects uploaded
    * @param string $citation_object_alias
    *   This name to make the json available under.
+   * @todo
+   *   fail gracefuly when createBasicCitationObject fails
    */
   public function loadBasicCitationObject($meta_data_alias, $citation_object_alias) {
     //get a basic object
@@ -123,6 +125,9 @@ class IslandoraCitationAPI {
    *   or FALSE if nothing was
    * @return mixed
    *   The data sent to JS, or FALSE if trouble hit or TRUE if no data needed to be added
+   *   
+   *   
+    //@todo add things to the jsAliases structure
    */
   public function addData($type, $alias, $content, $var_type=NULL) {
     //don't add if the alias already was used
@@ -563,6 +568,10 @@ class IslandoraCitationAPI {
    *   one of the uploaded citeproc citation meta data objects
    * @return
    *   The json of the citaiton object
+   * @todo 
+   *   remap $meta_data_alias to JS name
+   * @todo
+   *   only allow this to create if $meta_data_alias exists
    */
   private function createBasicCitationObject($meta_data_alias) {
     return '{
