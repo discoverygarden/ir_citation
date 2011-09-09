@@ -168,6 +168,7 @@ class IslandoraCitationAPI {
     else {
       IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()][] = $alias;
       IslandoraCitationAPI::$contentPointer[$type][$pointer] = $content;
+      IslandoraCitationAPI::$jsAliases[$pointer]=$alias;//the first gets sent to js
     }
 
     //LOG ALIAS AND CONTENT
@@ -340,7 +341,7 @@ class IslandoraCitationAPI {
   public function getContent($alias) {
     if ($this->isAliasUsed($alias)) {
       //localization
-      if (isset(IslandoraCitationAPI::$localizations[$this->getUID()][$alias])) {
+      if (isLocaleName($alias)) {
         return IslandoraCitationAPI::$localizations[$this->getUID()][$alias];
       }
       //other data structures
@@ -374,9 +375,20 @@ class IslandoraCitationAPI {
   public function getJSAlias($alias) {
     $jsAlias=FALSE;
     //fail if alias not present
-    //if just return the $alias
+    if ( ! isAliasUsed($alias)) {
+      return FALSE;
+    }
+    //if a locale just return the $alias
+    if (isLocaleName($alias)) {
+      $jsAlias = $alias;
+    }
+    else {
       //get alias pointer
+      $pointer = $this->getAliasPointer($alias);
       //get js alias
+      $jsAlias = IslandoraCitationAPI::$jsAliases[$pointer];
+    }
+      
     return $jsAlias;
   }
   
@@ -728,12 +740,28 @@ class IslandoraCitationAPI {
       }
     }
     
-    if (isset(IslandoraCitationAPI::$localizations[$this->getUID()][$alias])) {
+    if ($this->isLocaleName($alias)) {
       return TRUE;
     }
     return FALSE;
   }
 
+  /**
+  * This function is used to determine if the alias in question has already been assigned
+  * to a locale of this object
+  * @param string $alias
+  *   The alias to check for
+  * @return boolean
+  *  TRUE if the alias already exists for a locale
+  *  FALSE if the alias has not been used
+  */
+  private function isLocaleName($alias) {
+    if (isset(IslandoraCitationAPI::$localizations[$this->getUID()][$alias])) {
+      return TRUE;
+    }
+    return FALSE;
+  }
+  
   /**
   * This function is used to get the pointer associated with an alias
   * Does not work with localization strings they don't have pointers
