@@ -461,7 +461,7 @@ class IslandoraCitationAPI {
       $biblist_or_citation_alias['citation'] = $this->getJSAlias($biblist_or_citation_alias['citation']);
     }
     if (isset($biblist_or_citation_alias['bibliography_list'])) {
-      $biblist_or_citation_alias['bibliography_list'] = $this->getJSAlias($biblist_or_citation_alias['citation']);
+      $biblist_or_citation_alias['bibliography_list'] = $this->getJSAlias($biblist_or_citation_alias['bibliography_list']);
     }
     if (isset($optional_args['bibliography_slector'])) {
       $optional_args['bibliography_slector'] = $this->getJSAlias($optional_args['bibliography_slector']);
@@ -598,8 +598,6 @@ class IslandoraCitationAPI {
    *   one of the uploaded citeproc citation meta data objects
    * @return
    *   The json of the citaiton object
-   * @todo 
-   *   remap $meta_data_alias to JS name
    */
   private function createBasicCitationObject($meta_data_alias) {
     return '{
@@ -623,14 +621,12 @@ class IslandoraCitationAPI {
    * @return
    *   The json of the bibliography list
    * 
-   * @todo
-   *   integrate getJSAlias
    */
   private function loadBibliographyList(array $meta_data_alias_list, $bibliography_list_alias) {
     module_load_include('inc', 'ir_citation', 'ir_citation');
     // iterate through aliases adding the prefix
     foreach ($meta_data_alias_list as $meta_data_alias_key => $meta_data_alias) {
-      $meta_data_alias_list[$meta_data_alias_key] = $this->prefixAlias($meta_data_alias);
+      $meta_data_alias_list[$meta_data_alias_key] = $this->prefixAlias( $this->getJSAlias($meta_data_alias) );
     }
 
     // add the prefix to the csl alias
