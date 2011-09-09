@@ -375,7 +375,7 @@ class IslandoraCitationAPI {
   public function getJSAlias($alias) {
     $jsAlias=FALSE;
     //fail if alias not present
-    if ( ! isAliasUsed($alias)) {
+    if ( ! $this->isAliasUsed($alias)) {
       return FALSE;
     }
     //if a locale just return the $alias
@@ -617,10 +617,14 @@ class IslandoraCitationAPI {
    *   engine will use to create the bibliography,
    *   each member of the list needs to be the same as
    *   one of the uploaded citeproc citation meta data objects
+   *   
    * @param array $bibliography_list_alias
    *
    * @return
    *   The json of the bibliography list
+   * 
+   * @todo
+   *   integrate getJSAlias
    */
   private function loadBibliographyList(array $meta_data_alias_list, $bibliography_list_alias) {
     module_load_include('inc', 'ir_citation', 'ir_citation');
