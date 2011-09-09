@@ -373,7 +373,10 @@ class IslandoraCitationAPI {
    */
   public function getJSAlias($alias) {
     $jsAlias=FALSE;
-    
+    //fail if alias not present
+    //if just return the $alias
+      //get alias pointer
+      //get js alias
     return $jsAlias;
   }
   
