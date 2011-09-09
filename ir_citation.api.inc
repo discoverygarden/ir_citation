@@ -90,14 +90,19 @@ class IslandoraCitationAPI {
    *   This needs to match one of the names of a meta data json objects uploaded
    * @param string $citation_object_alias
    *   This name to make the json available under.
-   * @todo
-   *   fail gracefuly when createBasicCitationObject fails
+   * @return
+   *   FALSE if nothing was created/loaded into JS
+   *   or the string of what was loaded
    */
   public function loadBasicCitationObject($meta_data_alias, $citation_object_alias) {
+    if (! $this->isAliasUsed($meta_data_alias)) {
+      return FALSE;
+    }
+    $meta_data_alias = $this->getJSAlias($meta_data_alias);
     //get a basic object
     $json = $this->createBasicCitationObject($meta_data_alias);
     //send it to javascript
-    return ($this->loadCitation($json, $citation_object_alias));
+    return ($this->addData('citation', $citation_object_alias, $json));
   }
 
   /**
@@ -125,9 +130,7 @@ class IslandoraCitationAPI {
    *   or FALSE if nothing was
    * @return mixed
    *   The data sent to JS, or FALSE if trouble hit or TRUE if no data needed to be added
-   *   
-   *   
-    //@todo add things to the jsAliases structure
+   *  
    */
   public function addData($type, $alias, $content, $var_type=NULL) {
     //don't add if the alias already was used
@@ -363,9 +366,6 @@ class IslandoraCitationAPI {
    * API object.  This information is necessary when building the HTML spans and when 
    * creating some datastructures that reference the javascript name of other data.
    * 
-   * @todo
-   *   implement
-   *   
    * @param string $alias
    *   The PHP side alias.
    *   
@@ -456,6 +456,21 @@ class IslandoraCitationAPI {
     'bibliography_slector' => NULL,
     'abbreviations' => NULL
   )) {
+    //replace aliases with js names
+    if (isset($biblist_or_citation_alias['citation'])) {
+      $biblist_or_citation_alias['citation'] = $this->getJSAlias($biblist_or_citation_alias['citation']);
+    }
+    if (isset($biblist_or_citation_alias['bibliography_list'])) {
+      $biblist_or_citation_alias['bibliography_list'] = $this->getJSAlias($biblist_or_citation_alias['citation']);
+    }
+    if (isset($optional_args['bibliography_slector'])) {
+      $optional_args['bibliography_slector'] = $this->getJSAlias($optional_args['bibliography_slector']);
+    }
+    if (isset($optional_args['abbreviations'])) {
+      $optional_args['abbreviations'] = $this->getJSAlias($optional_args['abbreviations']);
+    }
+    $csl_alias = $this->getJSAlias($csl_alias);
+    
     //start
     $citeproc_markup = '<span class="ir_citation" ';
 
@@ -585,8 +600,6 @@ class IslandoraCitationAPI {
    *   The json of the citaiton object
    * @todo 
    *   remap $meta_data_alias to JS name
-   * @todo
-   *   only allow this to create if $meta_data_alias exists
    */
   private function createBasicCitationObject($meta_data_alias) {
     return '{
