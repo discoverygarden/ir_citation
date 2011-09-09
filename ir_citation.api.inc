@@ -11,6 +11,13 @@
  *  William Panting
  *
  * @todo
+ *  I need to start keeping track of the internal refernced things in the JS datastructures
+ *  so that they can be replace with aliases that are actualy present javascript side??
+ *  
+ *  we need a function for public function getJSAlias($alias) for use in the getCitationHTML
+ *  and createBasicCitationObject
+ *  and a new datastructure private static jsAliases[$pointer]=name_in_js
+ *  
  *  Implement data duplication prevention strategy... 
  *  we keep a record of all data inputed and the aliases at this level
  *  so that we only add one copy Javascript side.  This may be difficult because of 
@@ -29,9 +36,6 @@
  * 
  * @author 
  *   William Panting
- *   
- * @todo
- *   look at wrapping the local stuff with getAliasList and getContent
  */
 class IslandoraCitationAPI {
   /*
@@ -56,7 +60,7 @@ class IslandoraCitationAPI {
    */
   static protected $aliasPointer = array();
   static protected $contentPointer = array();
-
+  static protected $jsAliases = array();
   /* localization strings get their own array because they are special [tied to CSLs at the hip]
     To avoid lazy programmers doing something that later will break I am encouraging them to add
     localization strings and all data on a per object basis
@@ -108,6 +112,9 @@ class IslandoraCitationAPI {
   }
 
   /**
+   * This function is for adding data to the javascript.  It has some ability
+   * to prevent the duplication of data sent to JS.
+   * 
    * @param string $type
    *   This can be 1 of 7 different types.
    *   'csl'
@@ -127,22 +134,40 @@ class IslandoraCitationAPI {
    * @return mixed
    *   A string of what has been added to javaScript
    *   or FALSE if nothing was
-   * @return
-   *   The data sent to JS, or FALSE if trouble hit
+   * @return mixed
+   *   The data sent to JS, or FALSE if trouble hit or TRUE if no data needed to be added
    */
   public function addData($type, $alias, $content, $var_type=NULL) {
     //don't add if the alias already was used
     if ($this->isAliasUsed($alias)) {
       return FALSE;
     }
+    
     //if the content already esists, don't add it again, just create a new alias
     $content_duplication=IslandoraCitationAPI::isContentDuplicated($content, $type);
-    if ($content_duplication!==FALSE) {
+    if ($content_duplication !== FALSE) {
       //dsm($content_duplication);
-      //get the pointer for the alias
-      //$pointer=;
       //IslandoraCitationAPI::$aliasPointer[$alias]=$pointer
+      if ($type == 'locale') {
+        IslandoraCitationAPI::$localizations[$this->getUID()][$alias] = $content;
+        return TRUE;
+      }
+      else {
+        //get the pointer for the content
+        $pointer = 0;
+        foreach (IslandoraCitationAPI::$contentPointer[$type] as $loop_pointer => $loop_content) {
+          if ($loop_content == $content) {
+            $pointer = $loop_pointer;
+            IslandoraCitationAPI::$aliasPointer[$pointer][$this->getUID()][] = $alias;
+            return TRUE;
+          }
+        }
+      }
     }
+    
+    /*CONTINUE WITH ADDING DATA TO JS IF CONDITIONS ARE MET*/
+    
+    
     //otherwiase create a new pointer and log both the alias and the content
     $pointer = $this->getNewPointer();
     if ($type == 'locale') {
@@ -338,7 +363,24 @@ class IslandoraCitationAPI {
       return FALSE;
     }
   }
-
+  
+  /**
+   * This function should rarely be used as an API function.  It is here for transparency.
+   * It will get the name used javascript side for data that has been aliased by the current 
+   * API object.  This information is necessary when building the HTML spans and when 
+   * creating some datastructures that reference the javascript name of other data.
+   * 
+   * @param string $alias
+   *   The PHP side alias.
+   * @return mixed $jsAlias
+   *   The JS side name or FALSE if there is none.
+   */
+  public function getJSAlias($alias) {
+    $jsAlias=FALSE;
+    
+    return $jsAlias;
+  }
+  
   /**
    * This is a SUPER convienence function!!!
    * It saves a minimum of 3 lines of code for the user and a whole lot of thinking.
@@ -541,7 +583,7 @@ class IslandoraCitationAPI {
   }
 
   /**
-   * Function will create a basic citation object
+   * Function will create a basic bibliography object
    * @param array $meta_data_alias_list
    *   This is an array of the aliases (meta data objects) that the citeproc
    *   engine will use to create the bibliography,
@@ -677,7 +719,7 @@ class IslandoraCitationAPI {
   private function isAliasUsed($alias) {    
     foreach (IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
       foreach ($uids as $uid => $alias_list) {
-        if ($uid==$this->getUID()) {
+        if ($uid == $this->getUID()) {
           if (in_array($alias, $alias_list)) {
             return TRUE;
           }
@@ -703,7 +745,7 @@ class IslandoraCitationAPI {
   private function getAliasPointer($alias) {
     foreach (IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
       foreach ($uids as $uid => $alias_list) {
-        if ($uid==$this->getUID()) {
+        if ($uid == $this->getUID()) {
           if (in_array($alias, $alias_list)) {
             return $pointer;
           }
@@ -738,7 +780,7 @@ class IslandoraCitationAPI {
     IslandoraCitationAPI::$autoAliasCount = $autoAlias + 1;
 
     //recursion might not be the best way to handle the possiblity of collision
-    $autoAlias .=$meaningfulName;
+    $autoAlias .= $meaningfulName;
     if (!($this->isAliasUsed($autoAlias))) {
       return $autoAlias;
     }
@@ -757,7 +799,7 @@ class IslandoraCitationAPI {
   */
   private static function getNewUID() {
     $uid=IslandoraCitationAPI::$classCount;
-    IslandoraCitationAPI::$classCount = $uid+1;
+    IslandoraCitationAPI::$classCount = $uid + 1;
     return $uid;
   }
 
@@ -790,7 +832,7 @@ class IslandoraCitationAPI {
     if ($type=='locale') {
       foreach (IslandoraCitationAPI::$localizations as $uid => $alias_to_localization) {
         foreach ($alias_to_localization as $alias => $localization) {
-          if ($localization==$content_in) {
+          if ($localization == $content_in) {
             return $alias;//STRING
           }
         }
@@ -799,7 +841,7 @@ class IslandoraCitationAPI {
     else {
       if (isset(IslandoraCitationAPI::$contentPointer[$type])) {
         foreach (IslandoraCitationAPI::$contentPointer[$type] as $pointer => $present_content) {
-          if ($present_content==$content_in) {
+          if ($present_content == $content_in) {
             return $pointer;//INT
           }
         }
