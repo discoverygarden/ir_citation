@@ -4,10 +4,6 @@
  *   This is the main module file for the ir_citation module
  * @author
  *   William Panting
- * @todo
- *   put in access permissions?
- * @todo
- *   rename citeproc_json to something more meaningful like meta_data_object
  */
 
 /**
@@ -180,7 +176,6 @@ function test_api() {
   //dsm($tmp);
   $tmp=$test->getAliasList(array('type' => 'locale', 'content' => $locale));
   //dsm($tmp);
-  //@todo make get alias use standard route
   $tmp=$test->getContent($lang);
   //dsm($tmp);
   

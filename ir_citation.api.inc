@@ -9,19 +9,6 @@
  *  They may conflict with use of this API.
  * @author
  *  William Panting
- *
- * @todo
- *  I need to start keeping track of the internal refernced things in the JS datastructures
- *  so that they can be replace with aliases that are actualy present javascript side??
- *  
- *  we need a function for public function getJSAlias($alias) for use in the getCitationHTML
- *  and createBasicCitationObject
- *  and a new datastructure private static jsAliases[$pointer]=name_in_js
- *  
- *  Implement data duplication prevention strategy... 
- *  we keep a record of all data inputed and the aliases at this level
- *  so that we only add one copy Javascript side.  This may be difficult because of 
- *  the aliases being put directly in content [not my fualt, i swear]
  */
 
 /**
@@ -370,8 +357,12 @@ class IslandoraCitationAPI {
    * API object.  This information is necessary when building the HTML spans and when 
    * creating some datastructures that reference the javascript name of other data.
    * 
+   * @todo
+   *   implement
+   *   
    * @param string $alias
    *   The PHP side alias.
+   *   
    * @return mixed $jsAlias
    *   The JS side name or FALSE if there is none.
    */
@@ -713,8 +704,6 @@ class IslandoraCitationAPI {
    * @return boolean
    *  TRUE if the alias already exists
    *  FALSE if the alias has not been assigned
-   *  @todo 
-   *    include localization strings
    */
   private function isAliasUsed($alias) {    
     foreach (IslandoraCitationAPI::$aliasPointer as $pointer => $uids) {
