@@ -341,7 +341,7 @@ class IslandoraCitationAPI {
   public function getContent($alias) {
     if ($this->isAliasUsed($alias)) {
       //localization
-      if (isLocaleName($alias)) {
+      if ($this->isLocaleName($alias)) {
         return IslandoraCitationAPI::$localizations[$this->getUID()][$alias];
       }
       //other data structures
@@ -379,7 +379,7 @@ class IslandoraCitationAPI {
       return FALSE;
     }
     //if a locale just return the $alias
-    if (isLocaleName($alias)) {
+    if ($this->isLocaleName($alias)) {
       $jsAlias = $alias;
     }
     else {
