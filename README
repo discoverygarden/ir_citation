@@ -1,5 +1,5 @@
 This is a drupal module meant to aid in the use of citeproc-js.
 Currently this module does not support all the disambiguation features of citeproc-js, for now to get them you should write your own javascript to overide ir_citation_run.js.
 
-This module is currently experimental. Under heavy development.
-It relies hevily on the demo code from citeproc-js for testing.
+There are currently some issues with duplication of metadata on the javascript side.
+An issue with older CSLs: http://citationstyles.org/downloads/upgrade-notes.html#default-locale
