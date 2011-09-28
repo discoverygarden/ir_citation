@@ -298,7 +298,7 @@ function convert_mods_to_citeproc_json($mods, $item_id) {
   				// however, more precise mods elements (nonsort, etc.) do not.
   				// TODO: make all name handling better.
   				$namePart_type = (string)$namePart->attributes()->type;
-  				$namePart_type = set_namePart_to_family_if_needed(namePart_type);
+  				$namePart_type = set_namePart_to_family_if_needed($namePart_type);
   				$namePart_string = (string)$namePart;
   				if( strlen($namePart_string) == 1 ) {
   					$namePart_string .= ".";
@@ -380,7 +380,7 @@ function convert_mods_to_citeproc_json($mods, $item_id) {
   				// however, more precise mods elements (nonsort, etc.) do not.
   				// TODO: make all name handling better.
   				$namePart_type = (string)$namePart->attributes()->type;
-  				$namePart_type = set_namePart_to_family_if_needed(namePart_type);
+  				$namePart_type = set_namePart_to_family_if_needed($namePart_type);
   				$namePart_string = (string)$namePart;
   				if( strlen($namePart_string) == 1 ) {
   					$namePart_string .= ".";
@@ -440,7 +440,7 @@ function convert_mods_to_citeproc_json($mods, $item_id) {
   				// however, more precise mods elements (nonsort, etc.) do not.
   				// TODO: make all name handling better.
   				$namePart_type = (string)$namePart->attributes()->type;
-  				$namePart_type = set_namePart_to_family_if_needed(namePart_type);
+  				$namePart_type = set_namePart_to_family_if_needed($namePart_type);
   				$namePart_string = (string)$namePart;
   				if( strlen($namePart_string) == 1 ) {
   					$namePart_string .= ".";
