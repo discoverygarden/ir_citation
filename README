@@ -3,3 +3,17 @@ Currently this module does not support all the disambiguation features of citepr
 
 There are currently some issues with duplication of metadata on the javascript side.
 An issue with older CSLs: http://citationstyles.org/downloads/upgrade-notes.html#default-locale
+
+
+
+There is an issue with a metadata specification mismatch in regards to naming:
+
+MODS does not require name-parts to have a type:
+http://www.loc.gov/standards/mods/v3/mods-userguide-elements.html#namepart
+
+Citeproc-js does:
+http://citationstyles.org/downloads/specification.html#name
+
+So any MODS should have these present.
+There is currently a fallback to type='family' (family is required to be present by citeproc-js) hardcoded for any non-typed namepart.
+This is not appropriate and creates overwriting issues.  It is implemented to convienently prevent crashes.

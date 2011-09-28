@@ -298,6 +298,17 @@ function convert_mods_to_citeproc_json($mods, $item_id) {
   				// however, more precise mods elements (nonsort, etc.) do not.
   				// TODO: make all name handling better.
   				$namePart_type = (string)$namePart->attributes()->type;
+  				/*<HACK>*/
+  				/*This is bad:
+  				  MODS does not require name-parts to have a type:
+						http://www.loc.gov/standards/mods/v3/mods-userguide-elements.html#namepart
+						Citeproc-js does:
+						http://citationstyles.org/downloads/specification.html#name
+  				 */
+  				if (empty($namePart_type)) {
+  				  $namePart_type = 'family';
+  				}
+  				/*</HACK>*/
   				$namePart_string = (string)$namePart;
   				if( strlen($namePart_string) == 1 ) {
   					$namePart_string .= ".";
